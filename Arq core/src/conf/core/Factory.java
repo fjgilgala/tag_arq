@@ -9,32 +9,34 @@ package conf.core;
  * @author Francisco Javier Gil Gala
  *
  */
-class Factory {
+public class Factory {
 
 	private static Persistence _persistence;
 	private static Business _business;
 
 	/**
 	 * Devuelve una instancia de la implementación concreta de Persistence
+	 * 
 	 * @return Persistence
 	 */
-	static Persistence persistence() {
+	public Persistence persistence() {
 		return _persistence;
 	}
 
 	/**
 	 * Devuelve una instancia de la implementación cocnreta de Business
+	 * 
 	 * @return Business
 	 */
-	static Business business() {
+	public Business business() {
 		return _business;
 	}
 
-	public static void _setImplePersistence(Persistence persistence) {
+	static void _setImplePersistence(Persistence persistence) {
 		_persistence = PersistenceFactory.setPersistence(persistence);
 	}
 
-	public static void _setImpleBusiness(Business business) {
+	static void _setImpleBusiness(Business business) {
 		_business = BusinessFactory.setBusiness(business);
 	}
 }

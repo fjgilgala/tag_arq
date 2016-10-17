@@ -11,7 +11,7 @@ package conf.core;
  */
 public abstract class Persistence {
 
-	protected Persistence() {
+	public Persistence() {
 		Factory._setImplePersistence(this);
 	}
 

@@ -1,6 +1,5 @@
 package conf.core;
 
-import conf.gc.CompilarClases;
 import conf.gc.GenerarClases;
 import conf.util.BusinessException;
 
@@ -14,8 +13,29 @@ import conf.util.BusinessException;
  */
 public class Service {
 
-	public static Business services = Factory.business();
-	public static Persistence persistence = Factory.persistence();
+	public static void main(String[] args) throws BusinessException {
+		System.out.println("--------------\n - configurando el framework - ");
+		Service s = new Service();
+		s.startDemo();
+		s.get().business().testComunicaPresentacion();
+		s.get().persistence().testComunicaBusiness();
+		System.out.println("--------------\n - todo ok - ");
+	}
+
+	/**
+	 * Devuelve una instancia de la factory que permite hacer las llamadas a los
+	 * servicios de la aplicacion
+	 * 
+	 * @return
+	 * @throws BusinessException
+	 */
+	public Factory get() throws BusinessException {
+		try {
+			return Factory.class.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			throw new BusinessException("No se puede recuperar el servicio");
+		}
+	}
 
 	/**
 	 * Inicia el framework
@@ -23,7 +43,7 @@ public class Service {
 	 * @param businessImpl
 	 * @param persistenceImpl
 	 */
-	public static void start(Business businessImpl, Persistence persistenceImpl) {
+	public void start(Business businessImpl, Persistence persistenceImpl) {
 		start(businessImpl);
 		start(persistenceImpl);
 	}
@@ -33,9 +53,9 @@ public class Service {
 	 * 
 	 * @param businessImpl
 	 */
-	public static void start(Business businessImpl) {
-		if (Service.services == null)
-			Factory._setImpleBusiness(businessImpl);
+	public void start(Business businessImpl) {
+		Factory._setImpleBusiness(businessImpl);
+		System.out.println("Enlazada la capa de negocio");
 	}
 
 	/**
@@ -43,9 +63,9 @@ public class Service {
 	 * 
 	 * @param persistenceImpl
 	 */
-	public static void start(Persistence persistenceImpl) {
-		if (Service.persistence == null)
-			Factory._setImplePersistence(persistenceImpl);
+	public void start(Persistence persistenceImpl) {
+		Factory._setImplePersistence(persistenceImpl);
+		System.out.println("Enlazada la capa de persistencia");
 	}
 
 	/**
@@ -59,15 +79,15 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings("unchecked")
-	public static void startDemo() throws BusinessException {
+	public void startDemo() throws BusinessException {
 		GenerarClases.example();
-		CompilarClases.compilar("src/business", "BusinessImpl.java");
 		Class<Business> business;
 		Class<Persistence> persistence;
 		try {
 			business = (Class<Business>) Class.forName("business.BusinessImpl");
 			persistence = (Class<Persistence>) Class.forName("persistence.PersistenceImpl");
 			start(business.newInstance(), persistence.newInstance());
+			System.out.println("Clases de prueba instanciadas correctamente");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			throw new BusinessException(
 					"Error al instanciar las clases generadas; refresque el proyecto y vuelva a compilar");

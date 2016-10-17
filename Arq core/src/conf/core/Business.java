@@ -10,8 +10,9 @@ package conf.core;
  */
 public abstract class Business {
 
-	protected Business() {
+	public Business() {
 		Factory._setImpleBusiness(this);
+		System.out.println("OK");
 	}
 
 	/**
