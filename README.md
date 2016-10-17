@@ -15,17 +15,17 @@ Futuro:
 
 
 
-Uso de la biblioteca Core
-- Necesario adjuntar el jar 
-- Inicialización:
+## Uso de la biblioteca Core
+Necesario adjuntar el jar 
+Inicialización:
     // Inicia el framework
-		Service s = new Service();
-		s.start(new BusinessImple(), new PersistenceImple()); // siendo BusinessImpl y PersistenceImpl las implementaciones del usuario que        heredan de las clases Business y Persistence respectivamente.
-    Ó
+       Service s = new Service();
+       s.start(new BusinessImple(), new PersistenceImple()); // siendo BusinessImpl y PersistenceImpl las implementaciones del 
+     Ó
     // Inicia el framework y genera los paquetes y clases demo
-    Service.main()
-- Acceso:
-    BusinessImple b = (BusinessImple) s.get().business();
-    b.(métodos de la implementación)
-    ...
+       Service.main()
+Acceso:
+       BusinessImple b = (BusinessImple) s.get().business();
+       b.(métodos de la implementación)
+       ...
     lo mismo con persistence    
