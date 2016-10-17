@@ -16,6 +16,11 @@ public class Libro {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return titulo.equals(((Libro)obj).titulo);
+	}
 
 	@Override
 	public String toString() {

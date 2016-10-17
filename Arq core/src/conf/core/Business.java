@@ -1,5 +1,7 @@
 package conf.core;
 
+import conf.util.BusinessException;
+
 /**
  * 
  * Business clase abstracta de la que se debe extender la funcionalidad para
@@ -12,8 +14,9 @@ public abstract class Business {
 
 	public Business() {
 		Factory._setImpleBusiness(this);
-		System.out.println("OK");
 	}
+
+	public abstract Persistence getPersistence() throws BusinessException;
 
 	/**
 	 * Método para comprobar el correcto funcionamiento del framework

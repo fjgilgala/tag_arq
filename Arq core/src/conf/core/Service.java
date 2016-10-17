@@ -1,6 +1,6 @@
 package conf.core;
 
-import conf.gc.GenerarClases;
+import conf.gc.GeneradorCodigo;
 import conf.util.BusinessException;
 
 /**
@@ -73,14 +73,11 @@ public class Service {
 	 * necesario refrescar el proyecto o volver a compilar para poder seguir con
 	 * la ejecución del programa.
 	 * 
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings("unchecked")
 	public void startDemo() throws BusinessException {
-		GenerarClases.example();
+		GeneradorCodigo.generarDemo();
 		Class<Business> business;
 		Class<Persistence> persistence;
 		try {

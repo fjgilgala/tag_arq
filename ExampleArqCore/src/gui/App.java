@@ -33,8 +33,16 @@ public class App {
 		for (Libro l : libros)
 			System.out.println(l);
 
-		System.out.println("Añadiendo libro d");
+		System.out.println("Añadiendo libro D");
 		b.añadirLibro("D");
+
+		System.out.println("Listado de libros");
+		libros = b.listaLibros();
+		for (Libro l : libros)
+			System.out.println(l);
+
+		System.out.println("Borrando libro D");
+		b.borrarLibro("D");
 
 		System.out.println("Listado de libros");
 		libros = b.listaLibros();
