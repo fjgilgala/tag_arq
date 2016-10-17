@@ -12,3 +12,20 @@ Futuro:
 - Empaquetar la parte core como un libreria y añadirla a un proyecto de ejemplo
 - Empaquetar la libreria core con un módulo para aplicaciones JPA
 - Hacer un proyecto de ejemplo con la libreria core y la de JPA
+
+
+
+Uso de la biblioteca Core
+- Necesario adjuntar el jar 
+- Inicialización:
+    // Inicia el framework
+		Service s = new Service();
+		s.start(new BusinessImple(), new PersistenceImple()); // siendo BusinessImpl y PersistenceImpl las implementaciones del usuario que        heredan de las clases Business y Persistence respectivamente.
+    Ó
+    // Inicia el framework y genera los paquetes y clases demo
+    Service.main()
+- Acceso:
+    BusinessImple b = (BusinessImple) s.get().business();
+    b.(métodos de la implementación)
+    ...
+    lo mismo con persistence    
