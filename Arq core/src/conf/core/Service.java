@@ -14,11 +14,35 @@ import conf.util.BusinessException;
 public class Service {
 
 	public static void main(String[] args) throws BusinessException {
+		new Service().generarDemo();
+	}
+
+	/**
+	 * Genera los paquetes y clases para una demo a partir de una ruta de
+	 * paquetes especificada p.e: teleco/espartano/ por defecto la ruta se
+	 * generara como src/teleco/espartano/ para los paquetes
+	 * src/teleco/espartano/business etc
+	 * 
+	 * @param String
+	 *            ruta
+	 * @throws BusinessException
+	 */
+	public void generarDemo(String ruta) throws BusinessException {
+		GeneradorCodigo.modificarRutaPaquetes(ruta);
+		generarDemo();
+	}
+
+	/**
+	 * Genera los paquetes y clases para una demo en la ruta src/.. p.e:
+	 * src/business
+	 * 
+	 * @throws BusinessException
+	 */
+	public void generarDemo() throws BusinessException {
 		System.out.println("--------------\n - configurando el framework - ");
-		Service s = new Service();
-		s.startDemo();
-		s.get().business().testComunicaPresentacion();
-		s.get().persistence().testComunicaBusiness();
+		startDemo();
+		get().business().testComunicaPresentacion();
+		get().persistence().testComunicaBusiness();
 		System.out.println("--------------\n - todo ok - ");
 	}
 
@@ -81,8 +105,9 @@ public class Service {
 		Class<Business> business;
 		Class<Persistence> persistence;
 		try {
-			business = (Class<Business>) Class.forName("business.BusinessImpl");
-			persistence = (Class<Persistence>) Class.forName("persistence.PersistenceImpl");
+			business = (Class<Business>) Class.forName(GeneradorCodigo.getRutaPaquetesJava() + "business.BusinessImpl");
+			persistence = (Class<Persistence>) Class
+					.forName(GeneradorCodigo.getRutaPaquetesJava() + "persistence.PersistenceImpl");
 			start(business.newInstance(), persistence.newInstance());
 			System.out.println("Clases de prueba instanciadas correctamente");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {

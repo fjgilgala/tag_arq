@@ -25,6 +25,8 @@ public class App {
 		s.get().persistence().testComunicaBusiness();
 		s.get().business().testComunicaPresentacion();
 
+		Service.main(args);
+
 		// app en si
 		BusinessImple b = (BusinessImple) s.get().business();
 

@@ -20,7 +20,6 @@ public class BusinessImple extends Business {
 		return p;
 	}
 
-	// se debe refactorizar todo
 	public void añadirLibro(String nombre) throws BusinessException {
 		((PersistenceImple) getPersistence()).guardarLibro(new Libro(nombre));
 	}
