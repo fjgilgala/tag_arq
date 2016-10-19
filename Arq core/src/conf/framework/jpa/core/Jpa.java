@@ -15,7 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class Jpa {
-	
+
 	private static EntityManagerFactory emf = null;
 	private static ThreadLocal<EntityManager> emThread = new ThreadLocal<EntityManager>();
 
@@ -42,18 +42,17 @@ public class Jpa {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(Jpa.class.getResourceAsStream("/META-INF/persistence.xml"));
-
 			doc.getDocumentElement().normalize();
 			NodeList nl = doc.getElementsByTagName("persistence-unit");
-
 			return ((Element) nl.item(0)).getAttribute("name");
-
 		} catch (ParserConfigurationException e1) {
 			throw new RuntimeException(e1);
 		} catch (SAXException e1) {
 			throw new RuntimeException(e1);
 		} catch (IOException e1) {
 			throw new RuntimeException(e1);
+		} catch (IllegalArgumentException e1) {
+			throw new RuntimeException("Refresque el proyecto para enlazar los archivos generados");
 		}
 	}
 
@@ -63,5 +62,5 @@ public class Jpa {
 		else
 			return (T) list.get(0);
 	}
-	
+
 }

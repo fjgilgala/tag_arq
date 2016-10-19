@@ -5,9 +5,7 @@ import java.util.List;
 import business.actions.AñadirLibro;
 import business.actions.BorraTodo;
 import business.actions.ListadoLibros;
-import conf.core.Business;
-import conf.framework.jpa.executor.CommandExecutorFactory;
-import conf.framework.jpa.executor.Executor;
+import conf.framework.jpa.core.BusinessJPAImpl;
 import conf.util.BusinessException;
 import model.Libro;
 
@@ -17,9 +15,7 @@ import model.Libro;
  * @author Francisco Javier Gil Gala
  *
  */
-public class BusinessImpl extends Business {
-
-	private Executor executor = CommandExecutorFactory.getExecutor();
+public class BusinessImpl extends BusinessJPAImpl {
 
 	public void añadirLibro(Libro libro) throws BusinessException {
 		executor.execute(new AñadirLibro(libro));

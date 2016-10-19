@@ -5,7 +5,6 @@ import java.util.List;
 
 import business.BusinessImpl;
 import conf.core.Service;
-import conf.generadores.GeneradorArchivosConexion;
 import conf.gestorpersistance.GestorEmbeddedBD;
 import conf.util.BusinessException;
 import model.Libro;
@@ -22,9 +21,9 @@ public class App {
 
 	public static void main(String[] args) throws BusinessException {
 
-		// Inicia servicios de persistencia
-		GeneradorArchivosConexion.runExampleHSQLDB();
-		GestorEmbeddedBD.runHSQLDB("internal", "internal");
+		// Inicia servicios de persistencia; no es necesario para iniciar el framework
+		String databasename = "internal";
+		GestorEmbeddedBD.runHSQLDBJPA(databasename);
 
 		// Inicia el framework
 		Service s = new Service();

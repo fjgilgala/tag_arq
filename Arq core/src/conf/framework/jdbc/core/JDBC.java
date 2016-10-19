@@ -36,6 +36,7 @@ public abstract class JDBC {
 			inicializar();
 			crearConexion();
 		} catch (SQLException | IOException e) {
+			e.printStackTrace();
 			throw new BusinessException("Existe un error al crear la conexión con la BDD");
 		}
 	}
@@ -145,9 +146,13 @@ public abstract class JDBC {
 	 * @throws IOException
 	 */
 	protected void inicializar() throws IOException {
-		url = Lector.loadProperty(CONFIG_FILE, "url");
-		userName = Lector.loadProperty(CONFIG_FILE, "userName");
-		password = Lector.loadProperty(CONFIG_FILE, "password");
-		CONSULTAS_FILE = Lector.loadProperty(CONFIG_FILE, "archivo_consultas");
+		try {
+			url = Lector.loadProperty(CONFIG_FILE, "url");
+			userName = Lector.loadProperty(CONFIG_FILE, "userName");
+			password = Lector.loadProperty(CONFIG_FILE, "password");
+			CONSULTAS_FILE = Lector.loadProperty(CONFIG_FILE, "archivo_consultas");
+		} catch (NullPointerException e1) {
+			throw new RuntimeException("Refresque el proyecto para enlazar los archivos generados");
+		}
 	}
 }

@@ -15,28 +15,44 @@ public class GeneradorCodigo {
 	private static String ruta = "";
 
 	/**
-	 * Genera las clases demo BusinessImpl y PersistenceImpl y las guarda en los
-	 * paquetes Business y Persistence respectivamente.
+	 * Genera las clases demo JPA BusinessImpl y PersistenceImpl y las guarda en los
+	 * paquetes ..\Business y ..\Persistence respectivamente. 
 	 * 
 	 * @throws BusinessException
 	 */
-	public static void generarDemo() throws BusinessException {
+	public static void generarDemoJPA() throws BusinessException {
+		generarDemo("JPA", "jpa");
+	}
+	
+	/**
+	 * Genera las clases demo JDBC BusinessImpl y PersistenceImpl y las guarda en los
+	 * paquetes ..\Business y ..\Persistence respectivamente. 
+	 * 
+	 * @throws BusinessException
+	 */
+	public static void generarDemoJDBC() throws BusinessException {
+		generarDemo("JDBC", "jdbc");
+	}
+	
+	private static void generarDemo(String framework, String paquete) throws BusinessException {
 		String businessName = "BusinessImpl.java";
-		String businessBody = "package " + getRutaPaquetesJava() + "business;\n\n" + "import conf.core.Business;\n"
-				+ "import conf.core.Persistence;\n" + "import conf.core.Service;\n"
-				+ "import conf.util.BusinessException;\n" + "import " + getRutaPaquetesJava()
-				+ "persistence.PersistenceImpl;\n\n" + "public class BusinessImpl extends Business {\n\n"
-				+ "\t //clase autogenerada" + "\n" + "\t private PersistenceImpl p;\n\n"
-				+ "\t public Persistence getPersistence() throws BusinessException {\n" + "\t\tif (p == null)\n"
-				+ "\t\t\t p = (PersistenceImpl) new Service().get().persistence();\n" + "\t\t return p;\n" + "\t}\n}";
+		String businessBody = 
+					"package " + getRutaPaquetesJava() + "business;\n\n" 
+				+ 	"import conf.core.Persistence;\n" 
+				+ 	"import conf.core.Service;\n"
+				+ 	"import conf.framework."+paquete+".core.Business"+framework+"Impl;\n"
+				+ 	"import conf.util.BusinessException;\n"
+				+ 	"public class BusinessImpl extends Business"+framework+"Impl {\n\n"
+				+ 	"\t //clase autogenerada" + "\n}";
 		String businessUrl = "src/" + ruta + "business/";
 		Escritor.escritorCarpeta(businessUrl);
 		Escritor.escritor(businessUrl, businessName, businessBody);
-
 		String persistenceName = "PersistenceImpl.java";
-		String persistenceBody = "package " + getRutaPaquetesJava() + "persistence;\n\n"
-				+ "import conf.core.Persistence;\n\n" + "public class PersistenceImpl extends Persistence {\n\n"
-				+ "\t //clase autogenerada" + "\n\n}";
+		String persistenceBody = 
+					"package " + getRutaPaquetesJava() + "persistence;\n\n"
+				+ 	"import conf.core.Persistence;\n" 
+				+ 	"public class PersistenceImpl extends Persistence {\n\n"
+				+ 	"\t //clase autogenerada" + "\n}";
 		String persistenceUrl = "src/" + ruta + "persistence/";
 		Escritor.escritorCarpeta(persistenceUrl);
 		Escritor.escritor(persistenceUrl, persistenceName, persistenceBody);

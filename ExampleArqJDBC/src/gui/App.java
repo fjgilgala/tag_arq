@@ -7,7 +7,6 @@ import java.util.List;
 import business.BusinessImpl;
 import conf.core.Service;
 import conf.framework.jdbc.core.JDBCFactory;
-import conf.generadores.GeneradorArchivosConexion;
 import conf.gestorpersistance.GestorEmbeddedBD;
 import conf.util.BusinessException;
 import model.Libro;
@@ -24,14 +23,14 @@ public class App {
 
 	public static void main(String[] args) throws BusinessException {
 
-		// Inicia servicios de persistencia
+		// Inicia servicios de persistencia; no es necesario para iniciar el framework
+		String databasename = "internal";
 		try {
-			GeneradorArchivosConexion.runExampleHSQLDB();
-			GestorEmbeddedBD.runDerby("internal");
+			GestorEmbeddedBD.runHSQLDBJDBC(databasename);
 			JDBCFactory.getJDBC().pedirConexion().createStatement()
 					.execute("create table Libros(id INT PRIMARY KEY, titulo varchar(50))");
-		} catch (SQLException e) {
-		} finally {
+		} catch (SQLException | RuntimeException e) {
+			GestorEmbeddedBD.stopHSQLDB();
 		}
 
 		// Inicia el framework
@@ -52,5 +51,6 @@ public class App {
 
 		// necesario forzar la detención o finalizar la ejecución; con derby no
 		// es necesario
+		GestorEmbeddedBD.stopHSQLDB();
 	}
 }

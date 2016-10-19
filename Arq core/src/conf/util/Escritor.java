@@ -24,4 +24,17 @@ public class Escritor {
 		}
 	}
 
+	public static void escritorForzoso(String url, String name, String body) throws BusinessException {
+		try {
+			File archivo = new File(url + name);
+			archivo.delete();
+			archivo = new File(url + name);
+			FileWriter escribir = new FileWriter(archivo, true);
+			escribir.write(body);
+			escribir.close();
+		} catch (Exception e) {
+			throw new BusinessException("Error al escribir el fichero " + name);
+		}
+	}
+
 }
