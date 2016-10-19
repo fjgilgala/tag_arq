@@ -1,6 +1,6 @@
 package conf.core;
 
-import conf.gc.GeneradorCodigo;
+import conf.generadores.GeneradorCodigo;
 import conf.util.BusinessException;
 
 /**
@@ -14,7 +14,7 @@ import conf.util.BusinessException;
 public class Service {
 
 	public static void main(String[] args) throws BusinessException {
-		new Service().generarDemo();
+
 	}
 
 	/**
@@ -39,11 +39,9 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public void generarDemo() throws BusinessException {
-		System.out.println("--------------\n - configurando el framework - ");
 		startDemo();
 		get().business().testComunicaPresentacion();
 		get().persistence().testComunicaBusiness();
-		System.out.println("--------------\n - todo ok - ");
 	}
 
 	/**
@@ -79,7 +77,6 @@ public class Service {
 	 */
 	public void start(Business businessImpl) {
 		Factory._setImpleBusiness(businessImpl);
-		System.out.println("Enlazada la capa de negocio");
 	}
 
 	/**
@@ -89,7 +86,6 @@ public class Service {
 	 */
 	public void start(Persistence persistenceImpl) {
 		Factory._setImplePersistence(persistenceImpl);
-		System.out.println("Enlazada la capa de persistencia");
 	}
 
 	/**
@@ -109,7 +105,6 @@ public class Service {
 			persistence = (Class<Persistence>) Class
 					.forName(GeneradorCodigo.getRutaPaquetesJava() + "persistence.PersistenceImpl");
 			start(business.newInstance(), persistence.newInstance());
-			System.out.println("Clases de prueba instanciadas correctamente");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			throw new BusinessException(
 					"Error al instanciar las clases generadas; refresque el proyecto y vuelva a compilar");

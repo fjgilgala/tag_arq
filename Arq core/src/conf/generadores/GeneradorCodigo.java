@@ -1,9 +1,7 @@
-package conf.gc;
-
-import java.io.File;
-import java.io.FileWriter;
+package conf.generadores;
 
 import conf.util.BusinessException;
+import conf.util.Escritor;
 
 /**
  * 
@@ -32,17 +30,16 @@ public class GeneradorCodigo {
 				+ "\t public Persistence getPersistence() throws BusinessException {\n" + "\t\tif (p == null)\n"
 				+ "\t\t\t p = (PersistenceImpl) new Service().get().persistence();\n" + "\t\t return p;\n" + "\t}\n}";
 		String businessUrl = "src/" + ruta + "business/";
-		generadorPaquete(businessUrl);
-		generadorCodigo(businessUrl, businessName, businessBody);
+		Escritor.escritorCarpeta(businessUrl);
+		Escritor.escritor(businessUrl, businessName, businessBody);
 
 		String persistenceName = "PersistenceImpl.java";
 		String persistenceBody = "package " + getRutaPaquetesJava() + "persistence;\n\n"
 				+ "import conf.core.Persistence;\n\n" + "public class PersistenceImpl extends Persistence {\n\n"
 				+ "\t //clase autogenerada" + "\n\n}";
 		String persistenceUrl = "src/" + ruta + "persistence/";
-		generadorPaquete(persistenceUrl);
-		generadorCodigo(persistenceUrl, persistenceName, persistenceBody);
-		System.out.println("Clases de prueba generadas correctamente");
+		Escritor.escritorCarpeta(persistenceUrl);
+		Escritor.escritor(persistenceUrl, persistenceName, persistenceBody);
 	}
 
 	/**
@@ -56,6 +53,14 @@ public class GeneradorCodigo {
 	 */
 	public static void modificarRutaPaquetes(String ruta) {
 		GeneradorCodigo.ruta = ruta;
+	}
+
+	/**
+	 * Asigna la ruta de paquetes según la establecida en el descriptor de
+	 * paquetes de Maven (pom.xml)
+	 */
+	public static void asignarRutaPaquetesParaMaven() {
+
 	}
 
 	/**
@@ -85,31 +90,10 @@ public class GeneradorCodigo {
 	 * de @GeneradorCodigo.modificarRutaPaquetes
 	 */
 	public static void generarEstructuraPaquetes() {
-		generadorPaquete("src/" + ruta + "business");
-		generadorPaquete("src/" + ruta + "persistence");
-		generadorPaquete("src/" + ruta + "model");
-		generadorPaquete("src/" + ruta + "gui");
-		generadorPaquete("test/conf");
-	}
-
-	private static void generadorPaquete(String url) {
-		File directorio = new File(url);
-		if (!directorio.exists()) {
-			System.out.println("-> Directorio no existe, generando directorio " + url);
-			directorio.mkdirs();
-		}
-	}
-
-	private static void generadorCodigo(String url, String name, String body) throws BusinessException {
-		try {
-			File archivo = new File(url + name);
-			if (!archivo.exists()) {
-				FileWriter escribir = new FileWriter(archivo, true);
-				escribir.write(body);
-				escribir.close();
-			}
-		} catch (Exception e) {
-			throw new BusinessException("Error al generar el código para la clase " + name);
-		}
+		Escritor.escritorCarpeta("src/" + ruta + "business");
+		Escritor.escritorCarpeta("src/" + ruta + "persistence");
+		Escritor.escritorCarpeta("src/" + ruta + "model");
+		Escritor.escritorCarpeta("src/" + ruta + "gui");
+		Escritor.escritorCarpeta("test/conf");
 	}
 }

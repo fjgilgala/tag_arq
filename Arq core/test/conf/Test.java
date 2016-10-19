@@ -1,6 +1,6 @@
 package conf;
 
-import conf.gc.GeneradorCodigo;
+import conf.generadores.GeneradorCodigo;
 
 public class Test {
 
