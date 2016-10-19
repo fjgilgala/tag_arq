@@ -69,8 +69,11 @@ public class Service {
 	private void generarDemo() throws BusinessException {
 		System.out.println("Generando paquetes y clases");
 		startDemo();
-		get().business().testComunicaPresentacion();
-		get().persistence().testComunicaBusiness();
+		try {
+			get().business().testComunicaPresentacion();
+			get().persistence().testComunicaBusiness();
+		} catch (NullPointerException e) {
+		}
 	}
 
 	@SuppressWarnings("unchecked")
