@@ -2,13 +2,10 @@
 
 Presente:
 - Toda la documentación
-- Hacer un proyecto de ejemplo con la libreria core
 
 Futuro:
 - Arreglar algunos errores que da la MV al realizar compilación dinámica (no encuentra la ruta de a no ser que se compile de nuevo 
   o se refresque el proyecto desde el IDE)
-- Empaquetar la libreria core con un módulo para aplicaciones JPA
-- Hacer un proyecto de ejemplo con la libreria core y la de JPA
 
 ## Uso de la biblioteca Core
 - Necesario adjuntar el jar 
