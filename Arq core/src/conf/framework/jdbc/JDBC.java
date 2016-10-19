@@ -25,7 +25,7 @@ import conf.util.Lector;
  * @author Francisco Javier Gil Gala
  *
  */
-abstract class JDBC {
+public abstract class JDBC {
 
 	protected static final String CONFIG_FILE = "/conexion.properties";
 	protected static String url, userName, password;

@@ -21,7 +21,7 @@ public abstract class Action {
 	 * 
 	 * @throws BusinessException
 	 */
-	protected abstract void execute() throws BusinessException;
+	public abstract Object execute() throws BusinessException;
 
 	/**
 	 * Establace una conexión dada por el pool de conexiones de la clase

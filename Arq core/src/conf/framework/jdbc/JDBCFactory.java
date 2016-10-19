@@ -9,13 +9,13 @@ public class JDBCFactory {
 	public static void onPool() {
 		pool = true;
 	}
-	
+
 	public static void offPool() {
 		pool = true;
 	}
 
 	public static JDBC getJDBC() throws BusinessException {
-		if (pool)
+		if (!pool)
 			return SimpleJDBC.getInstance();
 		else
 			return PoolJDBC.getInstance();

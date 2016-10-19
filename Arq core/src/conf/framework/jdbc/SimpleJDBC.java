@@ -34,7 +34,12 @@ public class SimpleJDBC extends JDBC {
 
 	@Override
 	public Connection pedirConexion() throws BusinessException {
-		return con;
+		try {
+			crearConexion();
+			return con;
+		} catch (SQLException | IOException e) {
+			throw new BusinessException("Error al pedir la conexión");
+		}
 	}
 
 	@Override
