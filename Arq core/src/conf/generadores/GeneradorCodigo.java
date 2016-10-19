@@ -26,7 +26,7 @@ public class GeneradorCodigo {
 				+ "import conf.core.Persistence;\n" + "import conf.core.Service;\n"
 				+ "import conf.util.BusinessException;\n" + "import " + getRutaPaquetesJava()
 				+ "persistence.PersistenceImpl;\n\n" + "public class BusinessImpl extends Business {\n\n"
-				+ "\t //clase autogenerada" + "\n" + "\t private PersistenceImpl p;\n\n" + "\t @Override\n"
+				+ "\t //clase autogenerada" + "\n" + "\t private PersistenceImpl p;\n\n"
 				+ "\t public Persistence getPersistence() throws BusinessException {\n" + "\t\tif (p == null)\n"
 				+ "\t\t\t p = (PersistenceImpl) new Service().get().persistence();\n" + "\t\t return p;\n" + "\t}\n}";
 		String businessUrl = "src/" + ruta + "business/";

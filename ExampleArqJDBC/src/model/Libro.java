@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Libro ejemplo de clase del modelo de dominio de la aplicación
+ * 
+ * @author Francisco Javier Gil Gala
+ *
+ */
 public class Libro {
 
 	private int id;

@@ -1,6 +1,7 @@
 package conf.core;
 
 import conf.generadores.GeneradorCodigo;
+import conf.generadores.GeneradorJPAFile;
 import conf.util.BusinessException;
 
 /**
@@ -14,7 +15,7 @@ import conf.util.BusinessException;
 public class Service {
 
 	public static void main(String[] args) throws BusinessException {
-
+		GeneradorJPAFile.start();
 	}
 
 	/**

@@ -4,11 +4,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import conf.framework.jdbc.Gateway;
-import conf.framework.jdbc.JDBCFactory;
+import conf.framework.jdbc.core.JDBCFactory;
+import conf.framework.jdbc.gateway.Gateway;
 import conf.util.BusinessException;
 import model.Libro;
 
+/**
+ * GatewayLibro es una implementación de la clase @Gateway para los objetos
+ * libro del modelo
+ * 
+ * @author Francisco Javier Gil Gala
+ *
+ */
 public class GatewayLibro extends Gateway {
 
 	public void guardarLibro(Libro libro) throws BusinessException {
