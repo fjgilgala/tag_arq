@@ -3,7 +3,7 @@ package persistence;
 import java.util.List;
 
 import conf.core.Persistence;
-import conf.framework.jpa.core.Jpa;
+import gui.App;
 import model.Libro;
 
 /**
@@ -16,7 +16,7 @@ import model.Libro;
 public class PersistenceImpl extends Persistence {
 
 	public void añadirLibro(Libro libro) {
-		Jpa.getManager().persist(libro);
+		App.JpaManager().persist(libro);
 	}
 
 	public void borrarTodo() {
@@ -25,6 +25,6 @@ public class PersistenceImpl extends Persistence {
 
 	@SuppressWarnings("unchecked")
 	public List<Libro> listadoLibros() {
-		return Jpa.getManager().createNamedQuery("Libro.findAll").getResultList();
+		return App.JpaManager().createNamedQuery("Libro.findAll").getResultList();
 	}
 }

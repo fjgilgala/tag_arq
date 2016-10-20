@@ -38,7 +38,6 @@ public class GatewayLibro extends Gateway {
 			rs = pst.executeQuery();
 			while (rs.next())
 				libros.add(new Libro(rs.getInt("ID"), rs.getString("TITULO")));
-
 		} catch (SQLException e) {
 			throw new BusinessException("Existe un error al ejecutar la consulta de listar libros");
 		} finally {

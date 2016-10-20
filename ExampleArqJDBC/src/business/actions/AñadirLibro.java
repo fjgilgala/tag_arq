@@ -1,8 +1,8 @@
 package business.actions;
 
-import conf.core.Service;
 import conf.framework.jdbc.executor.Action;
 import conf.util.BusinessException;
+import gui.App;
 import model.Libro;
 import persistence.PersistenceImpl;
 import persistence.gateway.GatewayLibro;
@@ -17,9 +17,8 @@ public class AñadirLibro extends Action {
 
 	@Override
 	public Object execute() throws BusinessException {
-		Service s = new Service();
 		establecerConexion();
-		GatewayLibro gateway = ((PersistenceImpl) s.get().persistence()).gatewayLibro();
+		GatewayLibro gateway = ((PersistenceImpl) App.get().persistence()).gatewayLibro();
 		gateway.setConexion(c);
 		gateway.guardarLibro(libro);
 		cerrarConexion();

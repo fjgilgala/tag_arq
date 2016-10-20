@@ -54,8 +54,10 @@ public class GestorEmbeddedBD {
 	}
 
 	public static void stopHSQLDB() {
-		hsqlServer.stop();
-		hsqlServer = null;
+		try{
+			hsqlServer.stop();
+			hsqlServer = null;
+		}catch(NullPointerException e){} //pass
 	}
 
 }

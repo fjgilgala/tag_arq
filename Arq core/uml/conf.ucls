@@ -13,7 +13,7 @@
   </class>  
   <class id="2" language="java" name="conf.core.Persistence" project="Arq core" 
     file="/Arq core/src/conf/core/Persistence.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="949" y="381"/>    
+    <position height="-1" width="-1" x="991" y="381"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -22,7 +22,7 @@
   </class>  
   <class id="3" language="java" name="conf.core.BusinessFactory" project="Arq core" 
     file="/Arq core/src/conf/core/BusinessFactory.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="149" y="388"/>    
+    <position height="-1" width="-1" x="124" y="383"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -31,7 +31,7 @@
   </class>  
   <class id="4" language="java" name="conf.core.Business" project="Arq core" 
     file="/Arq core/src/conf/core/Business.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="487" y="385"/>    
+    <position height="-1" width="-1" x="410" y="384"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -56,79 +56,92 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="conf.generadores.GeneradorCodigo" project="Arq core" 
-    file="/Arq core/src/conf/generadores/GeneradorCodigo.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="716" y="725"/>    
+  <class id="7" language="java" name="conf.framework.jdbc.core.BusinessJDBCImpl" project="Arq core" 
+    file="/Arq core/src/conf/framework/jdbc/core/BusinessJDBCImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="155" x="224" y="512"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="8">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="9" name="_persistence">        
-        <position height="0" width="0" x="0" y="0"/>      
+  <class id="8" language="java" name="conf.framework.jpa.core.BusinessJPAImpl" project="Arq core" 
+    file="/Arq core/src/conf/framework/jpa/core/BusinessJPAImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="501" y="564"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="9">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="10" name="_business">        
+        <position height="0" width="0" x="-77" y="-1"/>      
       </attribute>      
-      <multiplicity id="10" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-77" y="-1"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="11">    
+  <dependency id="12">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <association id="12">    
+  <association id="13">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="13" name="_persistence">        
-        <position height="19" width="78" x="827" y="276"/>      
+      <attribute id="14" name="_persistence">        
+        <position height="19" width="78" x="869" y="276"/>      
       </attribute>      
-      <multiplicity id="14" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="0" width="0" x="42" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="15">    
+  <association id="16">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="17" name="_persistence">        
+        <position height="0" width="0" x="42" y="0"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="1">        
+        <position height="0" width="0" x="42" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="19">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <dependency id="20">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <dependency id="16">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <association id="17">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="18" name="_business">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="19" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="20">    
+  <dependency id="21">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <association id="21">    
+  <association id="22">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="22" name="_business">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="23" name="_business">        
+        <position height="0" width="0" x="-77" y="-1"/>      
       </attribute>      
-      <multiplicity id="23" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="24" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-77" y="-1"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

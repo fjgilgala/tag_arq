@@ -3,6 +3,12 @@ package conf.util;
 import java.io.File;
 import java.io.FileWriter;
 
+/**
+ * Clase encargada de generar los archivos necesarios de la app
+ * 
+ * @author Francisco Javier Gil Gala
+ *
+ */
 public class Escritor {
 
 	public static void escritorCarpeta(String url) {
@@ -36,6 +42,4 @@ public class Escritor {
 			throw new BusinessException("Error al escribir el fichero " + name);
 		}
 	}
-
-
 }
