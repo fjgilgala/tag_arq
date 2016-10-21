@@ -3,7 +3,6 @@ package business;
 import java.util.List;
 
 import business.actions.AñadirLibro;
-import business.actions.BorraTodo;
 import business.actions.ListadoLibros;
 import conf.framework.jpa.core.BusinessJPAImpl;
 import conf.util.BusinessException;
@@ -25,9 +24,4 @@ public class BusinessImpl extends BusinessJPAImpl {
 	public List<Libro> listaLibros() throws BusinessException {
 		return (List<Libro>) executor.execute(new ListadoLibros());
 	}
-
-	public void borraTodo() throws BusinessException {
-		executor.execute(new BorraTodo());
-	}
-
 }

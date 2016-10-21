@@ -11,5 +11,4 @@ public class ListadoLibros extends Action {
 	public Object execute() throws BusinessException {
 		return ((PersistenceImpl) App.get().persistence()).listadoLibros();
 	}
-
 }

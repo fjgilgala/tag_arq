@@ -16,7 +16,7 @@ import persistence.PersistenceImpl;
  * @author Francisco Javier Gil Gala
  *
  */
-public class App extends Service{
+public class App extends Service {
 
 	public static void main(String[] args) throws BusinessException {
 
@@ -33,7 +33,6 @@ public class App extends Service{
 		List<Libro> libros = b.listaLibros();
 		for (Libro l : libros)
 			System.out.println(l);
-		b.borraTodo();
 		b.añadirLibro(new Libro("telecadas varias"));
 		b.añadirLibro(new Libro("patrones de diseño"));
 		libros = b.listaLibros();
@@ -44,3 +43,5 @@ public class App extends Service{
 		stopHSQLServer();
 	}
 }
+
+

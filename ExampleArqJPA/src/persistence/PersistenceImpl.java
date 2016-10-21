@@ -19,10 +19,6 @@ public class PersistenceImpl extends Persistence {
 		App.JpaManager().persist(libro);
 	}
 
-	public void borrarTodo() {
-
-	}
-
 	@SuppressWarnings("unchecked")
 	public List<Libro> listadoLibros() {
 		return App.JpaManager().createNamedQuery("Libro.findAll").getResultList();

@@ -19,5 +19,4 @@ public class AñadirLibro extends Action {
 		((PersistenceImpl) App.get().persistence()).añadirLibro(libro);
 		return null;
 	}
-
 }
