@@ -29,5 +29,4 @@ public class BusinessImpl extends BusinessJDBCImpl {
 	public void borraTodo() throws BusinessException {
 		executor.execute(new BorraTodo());
 	}
-
 }

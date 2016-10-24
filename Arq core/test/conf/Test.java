@@ -1,16 +1,15 @@
 package conf;
 
-import conf.generadores.GeneradorCodigo;
+import conf.generadores.UtilGenerador;
 
 public class Test {
 
 	@org.junit.Test
 	public void testGeneradorCodigo() {
-		org.junit.Assert.assertEquals("src/", GeneradorCodigo.getRutaPaquetes());
-		org.junit.Assert.assertEquals("", GeneradorCodigo.getRutaPaquetesJava());
-		GeneradorCodigo.modificarRutaPaquetes("teleco/espartano/");
-		org.junit.Assert.assertEquals("src/teleco/espartano/", GeneradorCodigo.getRutaPaquetes());
-		org.junit.Assert.assertEquals("teleco.espartano.", GeneradorCodigo.getRutaPaquetesJava());
+		org.junit.Assert.assertEquals("src/", UtilGenerador.getRutaPaquetes());
+		org.junit.Assert.assertEquals("", UtilGenerador.getRutaPaquetesJava());
+		UtilGenerador.modificarRutaPaquetes("teleco/espartano/");
+		org.junit.Assert.assertEquals("src/teleco/espartano/", UtilGenerador.getRutaPaquetes());
+		org.junit.Assert.assertEquals("teleco.espartano.", UtilGenerador.getRutaPaquetesJava());
 	}
-
 }

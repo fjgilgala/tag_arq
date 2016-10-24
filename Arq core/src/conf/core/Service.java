@@ -2,8 +2,12 @@ package conf.core;
 
 import javax.persistence.EntityManager;
 
+import conf.framework.jdbc.core.JDBC;
+import conf.framework.jdbc.core.JDBCFactory;
 import conf.framework.jpa.core.Jpa;
-import conf.generadores.GeneradorCodigo;
+import conf.generadores.UtilGenerador;
+import conf.generadores.GeneradorDemo;
+import conf.generadores.GeneradorJSF;
 import conf.gestorpersistance.GestorEmbeddedBD;
 import conf.util.BusinessException;
 
@@ -17,6 +21,10 @@ import conf.util.BusinessException;
  */
 public class Service {
 
+	public static void main(String[] args) throws BusinessException {
+		GeneradorJSF.startWithRest();
+	}
+
 	// demo
 	/**
 	 * Genera los paquetes y clases para una demo JPA a partir de una ruta de
@@ -29,7 +37,7 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public static void generarDemoJPA(String ruta) throws BusinessException {
-		GeneradorCodigo.modificarRutaPaquetes(ruta);
+		UtilGenerador.modificarRutaPaquetes(ruta);
 		generarDemoJPA();
 	}
 
@@ -40,7 +48,7 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public static void generarDemoJPA() throws BusinessException {
-		GeneradorCodigo.generarDemoJPA();
+		GeneradorDemo.generarDemoJPA();
 		generarDemo();
 	}
 
@@ -52,21 +60,28 @@ public class Service {
 	 * 
 	 * @param String
 	 *            ruta
+	 * @param boolean
+	 *            activatePool
+	 * 
 	 * @throws BusinessException
 	 */
-	public void generarDemoJDBC(String ruta) throws BusinessException {
-		GeneradorCodigo.modificarRutaPaquetes(ruta);
-		generarDemoJDBC();
+	public void generarDemoJDBC(boolean activatePool, String ruta) throws BusinessException {
+		UtilGenerador.modificarRutaPaquetes(ruta);
+		generarDemoJDBC(activatePool);
 	}
 
 	/**
 	 * Genera los paquetes y clases para una demo JDBC en la ruta src/.. p.e:
 	 * src/business
 	 * 
+	 * @param boolean
+	 *            activatePool
 	 * @throws BusinessException
 	 */
-	public static void generarDemoJDBC() throws BusinessException {
-		GeneradorCodigo.generarDemoJDBC();
+	public static void generarDemoJDBC(boolean activatePool) throws BusinessException {
+		if (activatePool)
+			JDBCFactory.onPool();
+		GeneradorDemo.generarDemoJDBC();
 		generarDemo();
 	}
 
@@ -85,9 +100,9 @@ public class Service {
 		Class<Business> business;
 		Class<Persistence> persistence;
 		try {
-			business = (Class<Business>) Class.forName(GeneradorCodigo.getRutaPaquetesJava() + "business.BusinessImpl");
+			business = (Class<Business>) Class.forName(UtilGenerador.getRutaPaquetesJava() + "business.BusinessImpl");
 			persistence = (Class<Persistence>) Class
-					.forName(GeneradorCodigo.getRutaPaquetesJava() + "persistence.PersistenceImpl");
+					.forName(UtilGenerador.getRutaPaquetesJava() + "persistence.PersistenceImpl");
 			start(business.newInstance(), persistence.newInstance());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			System.out.println("Todo correcto\nRefresque el proyecto y vuelva a compilar");
@@ -188,10 +203,35 @@ public class Service {
 	 * Devuelve un EntityManager con el que hacer las acciones de persistencia
 	 * con JPA, solo para el framework JPA
 	 * 
-	 * @return
+	 * @return EntityManager
 	 */
 	public static EntityManager JpaManager() {
 		return Jpa.getManager();
+	}
+
+	/**
+	 * Devuelve una implementación de JDBC con el que hacer las acciones de
+	 * persistencia con JDBC, solo para el framework JDBC
+	 * 
+	 * @return JDBC
+	 * @throws BusinessException
+	 */
+	public static JDBC getJDBC() throws BusinessException {
+		return JDBCFactory.getJDBC();
+	}
+
+	/**
+	 * Establece activa un pool de conexiones, solo para el framework JDBC
+	 */
+	public static void onPoolConexionesJDBC() {
+		JDBCFactory.onPool();
+	}
+
+	/**
+	 * Establece desactiva un pool de conexiones, solo para el framework JDBC
+	 */
+	public static void oFFPoolConexionesJDBC() {
+		JDBCFactory.offPool();
 	}
 	// fin otros
 }

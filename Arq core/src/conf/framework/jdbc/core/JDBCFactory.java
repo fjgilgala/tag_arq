@@ -14,6 +14,12 @@ public class JDBCFactory {
 		pool = true;
 	}
 
+	/**
+	 * Devuelve una instancia concreta de la clase JDBC
+	 * 
+	 * @return JDBC
+	 * @throws BusinessException
+	 */
 	public static JDBC getJDBC() throws BusinessException {
 		if (!pool)
 			return SimpleJDBC.getInstance();
