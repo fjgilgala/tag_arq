@@ -37,8 +37,26 @@ public class Gateway {
 	 * @throws RIException
 	 */
 	public void prepararStatement(String nombre_consulta) throws BusinessException {
-		try {;
+		try {
+			;
 			pst = c.prepareStatement(SimpleJDBC.getInstance().getConsulta(nombre_consulta));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BusinessException("Existe un error con la base de datos");
+		}
+	}
+
+	/**
+	 * Establece valor a un PreparedStatement
+	 * 
+	 * @param String
+	 *            nombre_consulta
+	 * @throws RIException
+	 */
+	public void statment(String consulta) throws BusinessException {
+		try {
+			;
+			pst = c.prepareStatement(consulta);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new BusinessException("Existe un error con la base de datos");

@@ -3,8 +3,8 @@ package persistence;
 import java.util.List;
 
 import conf.core.Persistence;
-import gui.App;
 import model.Libro;
+import presentation.App;
 
 /**
  * PersistenceImpl es la implementación concreta de la clase Persistence del

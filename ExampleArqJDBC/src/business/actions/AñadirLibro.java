@@ -2,10 +2,10 @@ package business.actions;
 
 import conf.framework.jdbc.executor.Action;
 import conf.util.BusinessException;
-import gui.App;
 import model.Libro;
 import persistence.PersistenceImpl;
 import persistence.gateway.GatewayLibro;
+import presentation.App;
 
 public class AñadirLibro extends Action {
 

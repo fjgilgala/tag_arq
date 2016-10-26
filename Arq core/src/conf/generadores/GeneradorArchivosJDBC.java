@@ -10,13 +10,15 @@ public class GeneradorArchivosJDBC {
 				+ "maxStatements = 200\n" + "maxPoolSize = 30\n" + "minPoolSize = 3\n"
 				+ "archivo_consultas = /consultas.properties";
 		Escritor.escritorForzoso("src/", "conexion.properties", text);
-		generarArchivoConsulta();
+		// generarArchivoConsulta();
 	}
 
+	/*
 	private static void generarArchivoConsulta() throws BusinessException {
 		String text = "LISTAR_LIBROS = select id, titulo from libros\n"
 				+ "ADD = insert into libros(id, titulo) values (?, ?)\n" + "BORRA_TODO = truncate table libros";
 		Escritor.escritor("src/", "consultas.properties", text);
 	}
+	*/
 
 }

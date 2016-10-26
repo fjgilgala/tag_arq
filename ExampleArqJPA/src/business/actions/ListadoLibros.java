@@ -2,8 +2,8 @@ package business.actions;
 
 import conf.framework.jpa.executor.Action;
 import conf.util.BusinessException;
-import gui.App;
 import persistence.PersistenceImpl;
+import presentation.App;
 
 public class ListadoLibros extends Action {
 

@@ -2,9 +2,9 @@ package business.actions;
 
 import conf.framework.jpa.executor.Action;
 import conf.util.BusinessException;
-import gui.App;
 import model.Libro;
 import persistence.PersistenceImpl;
+import presentation.App;
 
 public class AñadirLibro extends Action {
 

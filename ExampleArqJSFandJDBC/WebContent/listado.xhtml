@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>APP EJEMPLO</title>
+</h:head>
+<h:body>
+	<center>
+		<h1>Libreria!</h1>
+		<br />
+		<h2>Aplicación de gestión de libros</h2>
+	</center>
+	<br />
+	<br />
+Listado de libros:
+<br />
+	<h:form>
+		<h:dataTable var="libro" value="#{controller.libros}" border="1">
+			<h:column>
+				<f:facet name="header">Titulo</f:facet>#{libro.titulo}</h:column>
+			<h:column>
+				<f:facet name="header">Autor</f:facet>#{libro.autor}</h:column>
+			<h:column>
+				<f:facet name="header">Baja</f:facet>
+				<h:commandLink action="#{controller.baja}" type="submit"
+					value="BAJA" immediate="true">
+					<f:setPropertyActionListener target="#{controller.libro}"
+						value="#{libro}" />
+				</h:commandLink>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Edición</f:facet>
+				<h:commandLink action="editar" type="submit" value="EDITAR"
+					immediate="true">
+					<f:setPropertyActionListener target="#{controller.libro}"
+						value="#{libro}" />
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>
