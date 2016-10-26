@@ -26,6 +26,7 @@ public class Escritor {
 				escribir.close();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException("Error al escribir el fichero " + name);
 		}
 	}

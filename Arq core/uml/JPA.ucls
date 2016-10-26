@@ -1,114 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.10" icons="true" automaticImage="JPEG" always-add-relationships="false" 
+<class-diagram version="1.1.11" icons="true" automaticImage="JPEG" always-add-relationships="false" 
   generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true" 
   router="FAN">  
-  <class id="1" language="java" name="conf.framework.jpa.core.BusinessJPAImpl" project="Arq core" 
-    file="/Arq core/src/conf/framework/jpa/core/BusinessJPAImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="104" y="168"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="conf.framework.jpa.executor.Action" project="Arq core" 
-    file="/Arq core/src/conf/framework/jpa/executor/Action.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="966" y="571"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="conf.framework.jpa.executor.CommandExecutorFactory" project="Arq core" 
-    file="/Arq core/src/conf/framework/jpa/executor/CommandExecutorFactory.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="395" y="577"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="conf.framework.jpa.executor.JpaCommandExecutorImpl" project="Arq core" 
-    file="/Arq core/src/conf/framework/jpa/executor/JpaCommandExecutorImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="698" y="575"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="5" language="java" name="conf.framework.jpa.executor.Executor" project="Arq core" 
-    file="/Arq core/src/conf/framework/jpa/executor/Executor.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="424" y="339"/>    
+  <interface id="1" language="java" name="conf.framework.Action" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/framework/Action.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="833" y="80"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="6" language="java" name="conf.framework.Action" project="Arq core" 
-    file="/Arq core/src/conf/framework/Action.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="960" y="148"/>    
+  <class id="2" language="java" name="conf.framework.jpa.core.Jpa" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/framework/jpa/core/Jpa.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="571" y="56"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="conf.framework.jpa.core.BusinessJPAImpl" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/framework/jpa/core/BusinessJPAImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="94" y="435"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="conf.framework.jpa.executor.Action" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/framework/jpa/executor/Action.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="832" y="489"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="conf.framework.jpa.executor.JpaCommandExecutorImpl" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/framework/jpa/executor/JpaCommandExecutorImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="570" y="490"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="6" language="java" name="conf.framework.jpa.executor.Executor" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/framework/jpa/executor/Executor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="335" y="434"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="7" language="java" name="conf.core.Business" project="Arq core" 
-    file="/Arq core/src/conf/core/Business.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="111" y="564"/>    
+  <class id="7" language="java" name="conf.core.Business" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/core/Business.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="93" y="607"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="conf.framework.jpa.core.Jpa" project="Arq core" 
-    file="/Arq core/src/conf/framework/jpa/core/Jpa.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="697" y="169"/>    
+  <class id="8" language="java" name="conf.core.Service" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/core/Service.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="197" y="152"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <dependency id="9">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="10">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <realization id="12">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="13">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <association id="14">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="15" name="executor"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+  <class id="9" language="java" name="conf.framework.jpa.executor.CommandExecutorFactory" project="Arq Core" 
+    file="/Arq Core/src_ext/conf/framework/jpa/executor/CommandExecutorFactory.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="331" y="595"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="10">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="11" name="executor">        
+        <position height="0" width="0" x="-92" y="0"/>      
+      </attribute>      
+      <multiplicity id="12" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-92" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="17">    
+  <dependency id="13">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="15">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <dependency id="16">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="8"/>  
   </dependency>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
   <dependency id="18">    
-    <end type="SOURCE" refId="4"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <realization id="20">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <dependency id="22">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

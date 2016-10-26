@@ -5,9 +5,8 @@ import javax.persistence.EntityManager;
 import conf.framework.jdbc.core.JDBC;
 import conf.framework.jdbc.core.JDBCFactory;
 import conf.framework.jpa.core.Jpa;
-import conf.generadores.UtilGenerador;
 import conf.generadores.GeneradorDemo;
-import conf.generadores.GeneradorJSF;
+import conf.generadores.UtilGenerador;
 import conf.gestorpersistance.GestorEmbeddedBD;
 import conf.util.BusinessException;
 
@@ -20,10 +19,6 @@ import conf.util.BusinessException;
  *
  */
 public class Service {
-
-	public static void main(String[] args) throws BusinessException {
-		GeneradorJSF.startWithRest();
-	}
 
 	// demo
 	/**
