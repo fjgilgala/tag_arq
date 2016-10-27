@@ -19,6 +19,7 @@ import conf.util.BusinessException;
  *
  */
 public class Service {
+
 	// demo
 	/**
 	 * Genera los paquetes y clases para una demo JPA a partir de una ruta de
@@ -42,7 +43,13 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public static void generarDemoJPA() throws BusinessException {
-		GeneradorDemo.generarDemoJPA();
+		try {
+			GeneradorDemo.generarDemoJPA();
+		} catch (BusinessException e) {
+			logExcepction("Error al generar la demo JPA", e);
+			throw new BusinessException(e);
+		}
+		logForzoso("Generando clases y archivos para la demo JPA");
 		generarDemo();
 	}
 
@@ -73,18 +80,24 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public static void generarDemoJDBC(boolean activatePool) throws BusinessException {
-		if (activatePool)
-			JDBCFactory.onPool();
-		GeneradorDemo.generarDemoJDBC();
+		try {
+			if (activatePool)
+				JDBCFactory.onPool();
+			GeneradorDemo.generarDemoJDBC();
+		} catch (BusinessException e) {
+			logExcepction("Error al generar la demo JPA", e);
+			throw new BusinessException(e);
+		}
+		logForzoso("Generando clases y archivos para la demo JDBC");
 		generarDemo();
 	}
 
-	private static void generarDemo() throws BusinessException {
-		System.out.println("Generando paquetes y clases");
+	private static void generarDemo() {
+		logForzoso("Clases generadas");
 		startDemo();
 		try {
-			get().business().testComunicaPresentacion();
-			get().persistence().testComunicaBusiness();
+			logForzoso("OK: comunicacion business->persistencia");
+			logForzoso("OK: comunicacion persistencia->business");
 		} catch (NullPointerException e) {
 		}
 	}
@@ -99,7 +112,7 @@ public class Service {
 					.forName(UtilGenerador.getRutaPaquetesJava() + "persistence.PersistenceImpl");
 			start(business.newInstance(), persistence.newInstance());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			System.out.println("Todo correcto\nRefresque el proyecto y vuelva a compilar");
+			logForzoso("Todo correcto: Refresque el proyecto y vuelva a compilar");
 		}
 	}
 	// fin demo
@@ -113,7 +126,13 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public static void generateHSQLServerJPA(String databasename) throws BusinessException {
-		GestorEmbeddedBD.runHSQLDBJPA(databasename);
+		try {
+			GestorEmbeddedBD.runHSQLDBJPA(databasename);
+		} catch (BusinessException e) {
+			logExcepction("Error al generar la base de datos embebida HSQL para JPA", e);
+			throw new BusinessException(e);
+		}
+		log("Generada una base de datos HSQL embebida y los archivos necesarios para una conexión JPA");
 	}
 
 	/**
@@ -124,7 +143,13 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public static void generateHSQLServerJDBC(String databasename) throws BusinessException {
-		GestorEmbeddedBD.runHSQLDBJDBC(databasename);
+		try {
+			GestorEmbeddedBD.runHSQLDBJDBC(databasename);
+		} catch (BusinessException e) {
+			logExcepction("Error al generar la base de datos embebida HSQL para JDBC", e);
+			throw new BusinessException(e);
+		}
+		log("Generada una base de datos HSQL embebida y los archivos necesarios para una conexión JDBC");
 	}
 
 	/**
@@ -132,6 +157,7 @@ public class Service {
 	 */
 	public static void stopHSQLServer() {
 		GestorEmbeddedBD.stopHSQLDB();
+		log("Parado el gestor de bases de datos HSQL embebida");
 	}
 
 	/**
@@ -142,7 +168,13 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public static void generateDerbyDBServerJDBC(String databasename) throws BusinessException {
-		GestorEmbeddedBD.runDerbyJDBC(databasename);
+		try {
+			GestorEmbeddedBD.runDerbyJDBC(databasename);
+		} catch (BusinessException e) {
+			logExcepction("Error al generar la base de datos embebida Derby para JDBC", e);
+			throw new BusinessException(e);
+		}
+		log("Generada una base de datos Derby embebida y los archivos necesarios para una conexión JDBC");
 	}
 	// fin gestor base de datos
 
@@ -156,8 +188,10 @@ public class Service {
 	 */
 	public static Factory get() throws BusinessException {
 		try {
+			log("Accediendo a la factoria de factorias");
 			return Factory.class.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
+			logExcepction("Error al acceder a la factoria de factorias: No se puede recuperar el servicio", e);
 			throw new BusinessException("No se puede recuperar el servicio");
 		}
 	}
@@ -171,6 +205,7 @@ public class Service {
 	public static void start(Business businessImpl, Persistence persistenceImpl) {
 		start(businessImpl);
 		start(persistenceImpl);
+		log("Iniciado el framework");
 	}
 
 	/**
@@ -200,6 +235,7 @@ public class Service {
 	 * @return EntityManager
 	 */
 	public static EntityManager JpaManager() {
+		log("Accediendo al EntityManager - JPA");
 		return Jpa.getManager();
 	}
 
@@ -211,6 +247,7 @@ public class Service {
 	 * @throws BusinessException
 	 */
 	public static JDBC getJDBC() throws BusinessException {
+		log("Accediendo a la implementación de JDBC");
 		return JDBCFactory.getJDBC();
 	}
 
@@ -219,6 +256,7 @@ public class Service {
 	 */
 	public static void onPoolConexionesJDBC() {
 		JDBCFactory.onPool();
+		log("Activado pool de conexiones JDBC");
 	}
 
 	/**
@@ -226,6 +264,47 @@ public class Service {
 	 */
 	public static void oFFPoolConexionesJDBC() {
 		JDBCFactory.offPool();
+		log("Desactivado pool de conexiones JDBC");
 	}
 	// fin otros
+
+	// logger
+	public final static int MODE_DISCRETO = LoggerImpl.MODE_DISCRETO;
+	public final static int MODE_ACTIVO = LoggerImpl.MODE_ACTIVO;
+	public final static int MODE_OFF = LoggerImpl.MODE_OFF;
+
+	public static void changeModeLog(int mode) {
+		LoggerImpl.setMode(mode);
+	}
+
+	public static int modeLogDiscreto() {
+		return LoggerImpl.setMode(MODE_DISCRETO);
+	}
+
+	public static int modeLogActivo() {
+		return LoggerImpl.setMode(MODE_ACTIVO);
+	}
+
+	public static int modeLogOff() {
+		return LoggerImpl.setMode(MODE_OFF);
+	}
+
+	private static void log(String line) {
+		LoggerImpl.log(line);
+	}
+
+	private static void logExcepction(String line, Exception e) {
+		LoggerImpl.log(line);
+		LoggerImpl.log(e.getMessage());
+	}
+
+	private static void logForzoso(String line) {
+		log("Log forzoso");
+		int mode = LoggerImpl.getMode();
+		LoggerImpl.modeActivo();
+		log(line);
+		LoggerImpl.setMode(mode);
+		log("Fin log forzoso");
+	}
+	// fin logger
 }

@@ -14,11 +14,4 @@ public abstract class Business {
 		Factory._setImpleBusiness(this);
 	}
 
-	/**
-	 * Método para comprobar el correcto funcionamiento del framework
-	 */
-	public void testComunicaPresentacion() {
-		System.out.println("OK: comunicacion persistencia->business");
-	}
-
 }

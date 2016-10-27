@@ -43,4 +43,15 @@ public class Escritor {
 			throw new BusinessException("Error al escribir el fichero " + name);
 		}
 	}
+
+	public static void writeLine(String line, String fichero) throws BusinessException {
+		try {
+			File archivo = new File(fichero);
+			FileWriter escribir = new FileWriter(archivo, true);
+			escribir.write(line);
+			escribir.close();
+		} catch (Exception e) {
+			throw new BusinessException("Error al escribir el fichero " + fichero);
+		}
+	}
 }

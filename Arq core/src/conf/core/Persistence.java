@@ -15,11 +15,4 @@ public abstract class Persistence {
 		Factory._setImplePersistence(this);
 	}
 
-	/**
-	 * Método para comprobar el correcto funcionamiento del framework
-	 */
-	public void testComunicaBusiness() {
-		System.out.println("OK: comunicacion business->persistencia");
-	}
-
 }
