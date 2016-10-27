@@ -19,7 +19,6 @@ import conf.util.BusinessException;
  *
  */
 public class Service {
-
 	// demo
 	/**
 	 * Genera los paquetes y clases para una demo JPA a partir de una ruta de

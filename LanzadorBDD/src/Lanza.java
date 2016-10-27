@@ -16,7 +16,7 @@ public class Lanza {
 		String databasename = "internal";
 		Service.generateHSQLServerJDBC(databasename);
 		Service.getJDBC().pedirConexion().setAutoCommit(true);
-		// JDBCFactory.getJDBC().pedirConexion().createStatement().execute("DROP TABLE libro;");
+		JDBCFactory.getJDBC().pedirConexion().createStatement().execute("DROP TABLE libro;");
 		JDBCFactory.getJDBC().pedirConexion().createStatement()
 				.execute("create table libro(id INTEGER IDENTITY PRIMARY KEY, titulo varchar(50), autor varchar(50))");
 		System.out.println("Base de datos en ejecucion");
