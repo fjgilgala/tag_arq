@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>APP EJEMPLO</title>
+</h:head>
+<h:body>
+	<center>
+		<h1>Libreria!</h1>
+		<br />
+		<h2>Aplicación de gestión de libros</h2>
+	</center>
+	<br />
+	<br />
+Alta de un libro:
+<br />
+	<h:form>
+		<h:panelGrid columns="2" styleClass="formTable">
+  TITULO: 
+  <h:inputText value="#{controller.libro.titulo}" />
+  
+  AUTOR: 
+  <h:inputText value="#{controller.libro.autor}" />
+		</h:panelGrid>
+		<h:commandButton value="Salvar" action="#{controller.salva}" />
+	</h:form>
+</h:body>
+</html>
