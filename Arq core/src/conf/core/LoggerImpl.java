@@ -12,7 +12,7 @@ class LoggerImpl {
 	public final static int MODE_ACTIVO = 1;
 	public final static int MODE_OFF = 2;
 
-	private static int mode = 0;
+	private static int mode = 2;
 
 	private LoggerImpl() {
 	}
@@ -62,7 +62,7 @@ class LoggerImpl {
 	}
 
 	private static void print(String line) {
-		System.out.println("[" + new Date() + "] Log " + line);
+		System.out.println("[" + new Date() + "] Log Arq_Core: " + line);
 	}
 
 }

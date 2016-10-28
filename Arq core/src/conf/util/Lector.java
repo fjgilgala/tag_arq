@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -39,14 +41,30 @@ public class Lector {
 	}
 
 	@SuppressWarnings("resource")
-	public static String loadArchive(String archive) throws FileNotFoundException, IOException {
-		String text = "";
-		File fichero = new File(archive);
-		Scanner s = null;
-		s = new Scanner(fichero);
-		while (s.hasNextLine())
-			text += s.nextLine();
-		return text;
+	public static String loadArchive(String archive) throws BusinessException {
+		try {
+			String text = "";
+			File fichero = new File(archive);
+			Scanner s = null;
+			s = new Scanner(fichero);
+			while (s.hasNextLine())
+				text += s.nextLine();
+			return text;
+		} catch (FileNotFoundException e) {
+			throw new BusinessException("El archivo " + archive + " no existe");
+		}
 	}
 
+	public static List<String> cargarDirectorio(String directorio) throws BusinessException {
+		File f = new File(directorio);
+		if (f.exists()) {
+			List<String> archivos = new ArrayList<String>();
+			File[] ficheros = f.listFiles();
+			for (int i = 0; i < ficheros.length; i++)
+				archivos.add(ficheros[i].getName());
+			return archivos;
+		} else {
+			throw new BusinessException("El directorio " + directorio + " no existe");
+		}
+	}
 }

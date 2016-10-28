@@ -4,21 +4,23 @@ import conf.util.BusinessException;
 import conf.util.Escritor;
 
 public class GeneradorREST {
-
-	public static void start() throws BusinessException {
-		String url = UtilGenerador.getRutaPaquetes()+"rest/";
-		Escritor.escritorCarpeta(url);
-		String name = "Application.java";
-		String body = 
-					"package " + UtilGenerador.getRutaPaquetesJava() + "rest;\n\n" 
-				+ 	"import java.util.HashSet;\n" 
-				+ 	"import java.util.Set;\n\n"
-				+ 	"public class Application extends javax.ws.rs.core.Application {\n\n"
-				+ 	"\t @Override" + "\n"
-				+ 	"\t public Set<Class<?>> getClasses() {\n"
-				+ 	"\t\t Set<Class<?>> res = new HashSet<>();\n"
-				+ 	"\t\t //añadir aqui las implementacines necesarias \n"
-				+ 	"\t\t return res;\n \t}\n}";
+	
+	public static void generaraAplicacion(String directorioDestino) throws BusinessException{
+		String name =   "Application.java";
+		String body = 	"package " + UtilGenerador.getRutaPaquetesJava() + "rest;\n\n" +
+						"import java.util.Set;\n\n"+
+						"public class Application extends conf.framework.rest.Application {\n"+
+						"\t@Override\n"+
+						"\tpublic Set<Class<?>> getClasses() {\n"+
+						"\t\treturn super.getClasses();\n"+
+						"\t}\n}";
+		String url = UtilGenerador.getRutaPaquetes() + "rest/";
 		Escritor.escritor(url, name, body);
 	}
+
+	public static void generaDirectorios(String directorioDestino) throws BusinessException{
+		Escritor.escritorCarpeta(directorioDestino);
+		Escritor.escritorCarpeta(directorioDestino + "/impl");
+	}
+	
 }

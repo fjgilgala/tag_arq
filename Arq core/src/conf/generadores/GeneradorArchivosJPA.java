@@ -13,8 +13,7 @@ public class GeneradorArchivosJPA {
 			throws BusinessException {
 		String ruta = "src/META-INF";
 		Escritor.escritorCarpeta(ruta);
-		Escritor.escritor(ruta, "/persistence.xml",
-				getPersistence(dialect, driver, url, user, password));
+		Escritor.escritor(ruta, "/persistence.xml",getPersistence(dialect, driver, url, user, password));
 		Escritor.escritor(ruta, "/orm.xml", getORM());
 	}
 

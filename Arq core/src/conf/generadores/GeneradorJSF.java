@@ -3,6 +3,9 @@ package conf.generadores;
 import conf.util.BusinessException;
 import conf.util.Escritor;
 
+
+// recuperar una versión más antigua que tenga lo de generar si que quiere REST
+
 public class GeneradorJSF {
 	
 	private static String url = "WebContent/WEB-INF/";
@@ -12,13 +15,6 @@ public class GeneradorJSF {
 		core();
 		String webBody = webBody() + "</web-app>";
 		Escritor.escritor(url, "web.xml", webBody);
-	}
-	
-	public static void startWithRest() throws BusinessException {
-		core();
-		String webBody = webBody() + withRest()+ "</web-app>";
-		Escritor.escritor(url, "web.xml", webBody);
-		GeneradorREST.start();
 	}
 	
 	private static void core() throws BusinessException{
@@ -92,7 +88,7 @@ public class GeneradorJSF {
 				 "<param-value>true</param-value>\n"+
 				 "</context-param>\n";
 	}
-	
+	/*	
 	private static String withRest(){
 		return  "<context-param>\n"+
 				 "<param-name>resteasy.servlet.mapping.prefix</param-name>\n"+
@@ -123,7 +119,7 @@ public class GeneradorJSF {
 				 "<url-pattern>/rest-jsapi</url-pattern>\n"+
 				 "</servlet-mapping>\n";
 	}
-	
+	*/
 	/*
 	private static void generalPage(){
 		String body = 	"<?xml version='1.0' encoding='UTF-8' ?>"+

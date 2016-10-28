@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import conf.framework.jdbc.core.JDBC;
 import conf.framework.jdbc.core.JDBCFactory;
 import conf.framework.jpa.core.Jpa;
+import conf.framework.rest.ServiceREST;
 import conf.generadores.GeneradorDemo;
 import conf.generadores.UtilGenerador;
 import conf.gestorpersistance.GestorEmbeddedBD;
@@ -19,6 +20,10 @@ import conf.util.BusinessException;
  *
  */
 public class Service {
+
+	public static void main(String[] args) throws BusinessException {
+		ServiceREST.start("src/business/");
+	}
 
 	// demo
 	/**

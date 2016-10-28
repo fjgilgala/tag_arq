@@ -23,22 +23,29 @@ public class GestorEmbeddedBD {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			GeneradorArchivosJDBC.start("jdbc:derby:" + databasename + ";create=true", "", "");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 			throw new BusinessException("Error al iniciar la base de datos embebida derby");
 		}
 	}
 
 	public static void runHSQLDBJPA(String databasename) throws BusinessException {
-		if (hsqlServer == null) {
-			runHSQLDB(databasename);
-			GeneradorArchivosJPA.startHSQLDB("jdbc:hsqldb:hsql://localhost/" + databasename, "sa", "");
+		try {
+			if (hsqlServer == null) {
+				runHSQLDB(databasename);
+				GeneradorArchivosJPA.startHSQLDB("jdbc:hsqldb:hsql://localhost/" + databasename, "sa", "");
+			}
+		} catch (BusinessException e) {
+			throw new BusinessException("Error al iniciar la base de datos embebida HSQLDB\n"+e.getMessage());
 		}
 	}
 
 	public static void runHSQLDBJDBC(String databasename) throws BusinessException {
-		if (hsqlServer == null) {
-			runHSQLDB(databasename);
-			GeneradorArchivosJDBC.start("jdbc:hsqldb:hsql://localhost/" + databasename, "sa", "");
+		try {
+			if (hsqlServer == null) {
+				runHSQLDB(databasename);
+				GeneradorArchivosJDBC.start("jdbc:hsqldb:hsql://localhost/" + databasename, "sa", "");
+			}
+		} catch (BusinessException e) {
+			throw new BusinessException("Error al iniciar la base de datos embebida HSQLDB\n"+e.getMessage());
 		}
 	}
 
@@ -54,10 +61,11 @@ public class GestorEmbeddedBD {
 	}
 
 	public static void stopHSQLDB() {
-		try{
+		try {
 			hsqlServer.stop();
 			hsqlServer = null;
-		}catch(NullPointerException e){} //pass
+		} catch (NullPointerException e) {
+		} // pass
 	}
 
 }
