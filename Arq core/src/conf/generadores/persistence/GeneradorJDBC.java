@@ -1,9 +1,9 @@
-package conf.generadores;
+package conf.generadores.persistence;
 
 import conf.util.BusinessException;
 import conf.util.Escritor;
 
-public class GeneradorArchivosJDBC {
+public class GeneradorJDBC {
 
 	public static void start(String url, String username, String password) throws BusinessException {
 		String text = "url = " + url + "\n" + "userName = " + username + "\n" + "password = " + password + "\n"

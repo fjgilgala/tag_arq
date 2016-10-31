@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import conf.framework.jdbc.core.SimpleJDBC;
 import conf.util.BusinessException;
+import conf.util.LoggerImpl;
 
 /**
  * Gateway implementa con operaciones básicas de conexión con un driver JDBC
@@ -38,8 +39,8 @@ public class Gateway {
 	 */
 	public void prepararStatement(String nombre_consulta) throws BusinessException {
 		try {
-			;
 			pst = c.prepareStatement(SimpleJDBC.getInstance().getConsulta(nombre_consulta));
+			LoggerImpl.log("Ejecutada consulta " + nombre_consulta);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new BusinessException("Existe un error con la base de datos");
@@ -53,10 +54,11 @@ public class Gateway {
 	 *            nombre_consulta
 	 * @throws RIException
 	 */
-	public void statment(String consulta) throws BusinessException {
+	public void createPreparedStatment(String consulta) throws BusinessException {
 		try {
-			;
 			pst = c.prepareStatement(consulta);
+			LoggerImpl.log("Ejecutada consulta " + consulta);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new BusinessException("Existe un error con la base de datos");

@@ -50,6 +50,7 @@ public class Escritor {
 			escribir.write(line);
 			escribir.close();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException("Error al escribir el fichero " + fichero);
 		}
 	}

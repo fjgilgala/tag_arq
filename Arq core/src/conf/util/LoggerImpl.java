@@ -1,18 +1,17 @@
-package conf.core;
+package conf.util;
 
 import java.util.Date;
 
-import conf.util.BusinessException;
-import conf.util.Escritor;
+public class LoggerImpl {
 
-class LoggerImpl {
-
-	private final static String fichero = "/log";
+	private final static String fichero = "log";
 	public final static int MODE_DISCRETO = 0;
 	public final static int MODE_ACTIVO = 1;
 	public final static int MODE_OFF = 2;
 
-	private static int mode = 2;
+	private static int mode = 0;
+
+	private static int contador = 0;
 
 	private LoggerImpl() {
 	}
@@ -54,15 +53,21 @@ class LoggerImpl {
 	}
 
 	private static void discreto(String line) {
-		try {
-			Escritor.writeLine(line, fichero);
-		} catch (BusinessException e) {
-			System.err.println("Existe un error al escribir el archivo log");
+		synchronized (line) {
+			try {
+				Escritor.writeLine(formatLine(line) + "\n", fichero);
+			} catch (BusinessException e) {
+				System.err.println("Existe un error al escribir el archivo log");
+			}
 		}
 	}
 
 	private static void print(String line) {
-		System.out.println("[" + new Date() + "] Log Arq_Core: " + line);
+		System.out.println(formatLine(line));
+	}
+
+	private static String formatLine(String line) {
+		return "[ID:" + contador++ + "][" + new Date() + "] Log Arq_Core: " + line;
 	}
 
 }

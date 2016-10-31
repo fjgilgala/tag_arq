@@ -151,8 +151,10 @@ public abstract class JDBC {
 			userName = Lector.loadProperty(CONFIG_FILE, "userName");
 			password = Lector.loadProperty(CONFIG_FILE, "password");
 			CONSULTAS_FILE = Lector.loadProperty(CONFIG_FILE, "archivo_consultas");
-		} catch (NullPointerException e1) {
+		} catch (NullPointerException e) {
 			throw new RuntimeException("Refresque el proyecto para enlazar los archivos generados");
+		} catch (BusinessException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }

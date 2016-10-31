@@ -1,15 +1,20 @@
 package conf.core;
 
+import java.io.IOException;
+
 import javax.persistence.EntityManager;
 
 import conf.framework.jdbc.core.JDBC;
 import conf.framework.jdbc.core.JDBCFactory;
 import conf.framework.jpa.core.Jpa;
-import conf.framework.rest.ServiceREST;
+import conf.framework.sgbd.ServiceSGBD;
 import conf.generadores.GeneradorDemo;
 import conf.generadores.UtilGenerador;
-import conf.gestorpersistance.GestorEmbeddedBD;
+import conf.generadores.rest.GeneradorREST;
 import conf.util.BusinessException;
+import conf.util.Escritor;
+import conf.util.Lector;
+import conf.util.LoggerImpl;
 
 /**
  * 
@@ -21,10 +26,6 @@ import conf.util.BusinessException;
  */
 public class Service {
 
-	public static void main(String[] args) throws BusinessException {
-		ServiceREST.start("src/business/");
-	}
-
 	// demo
 	/**
 	 * Genera los paquetes y clases para una demo JPA a partir de una ruta de
@@ -34,9 +35,8 @@ public class Service {
 	 * 
 	 * @param String
 	 *            ruta
-	 * @throws BusinessException
 	 */
-	public static void generarDemoJPA(String ruta) throws BusinessException {
+	public static void generarDemoJPA(String ruta) {
 		UtilGenerador.modificarRutaPaquetes(ruta);
 		generarDemoJPA();
 	}
@@ -45,17 +45,16 @@ public class Service {
 	 * Genera los paquetes y clases para una demo JPA en la ruta src/.. p.e:
 	 * src/business
 	 * 
-	 * @throws BusinessException
 	 */
-	public static void generarDemoJPA() throws BusinessException {
+	public static void generarDemoJPA() {
 		try {
 			GeneradorDemo.generarDemoJPA();
+			logForzoso("Generando clases y archivos para la demo JPA");
+			generarDemo();
 		} catch (BusinessException e) {
 			logExcepction("Error al generar la demo JPA", e);
-			throw new BusinessException(e);
+			throw new RuntimeException("Error al inicializar la demo: " + e);
 		}
-		logForzoso("Generando clases y archivos para la demo JPA");
-		generarDemo();
 	}
 
 	/**
@@ -69,9 +68,8 @@ public class Service {
 	 * @param boolean
 	 *            activatePool
 	 * 
-	 * @throws BusinessException
 	 */
-	public void generarDemoJDBC(boolean activatePool, String ruta) throws BusinessException {
+	public void generarDemoJDBC(boolean activatePool, String ruta) {
 		UtilGenerador.modificarRutaPaquetes(ruta);
 		generarDemoJDBC(activatePool);
 	}
@@ -82,19 +80,18 @@ public class Service {
 	 * 
 	 * @param boolean
 	 *            activatePool
-	 * @throws BusinessException
 	 */
-	public static void generarDemoJDBC(boolean activatePool) throws BusinessException {
+	public static void generarDemoJDBC(boolean activatePool) {
 		try {
 			if (activatePool)
 				JDBCFactory.onPool();
 			GeneradorDemo.generarDemoJDBC();
+			logForzoso("Generando clases y archivos para la demo JDBC");
+			generarDemo();
 		} catch (BusinessException e) {
-			logExcepction("Error al generar la demo JPA", e);
-			throw new BusinessException(e);
+			logExcepction("Error al generar la demo JDBC", e);
+			throw new RuntimeException("Error al inicializar la demo: " + e);
 		}
-		logForzoso("Generando clases y archivos para la demo JDBC");
-		generarDemo();
 	}
 
 	private static void generarDemo() {
@@ -120,24 +117,23 @@ public class Service {
 			logForzoso("Todo correcto: Refresque el proyecto y vuelva a compilar");
 		}
 	}
-	// fin demo
 
+	// fin demo
 	// gestor base de datos
 	/**
 	 * Inicia una base de datos HSQLembebida en la aplicación con todos los
 	 * archivos necesarios para JPA
 	 * 
 	 * @param databasename
-	 * @throws BusinessException
 	 */
-	public static void generateHSQLServerJPA(String databasename) throws BusinessException {
+	public static void generateHSQLServerJPA(String databasename) {
 		try {
-			GestorEmbeddedBD.runHSQLDBJPA(databasename);
+			ServiceSGBD.runHSQLDBJPA(databasename);
+			log("Generada una base de datos HSQL embebida y los archivos necesarios para una conexión JPA");
 		} catch (BusinessException e) {
 			logExcepction("Error al generar la base de datos embebida HSQL para JPA", e);
-			throw new BusinessException(e);
+			throw new RuntimeException("Error al inicializar la base de datos: " + e);
 		}
-		log("Generada una base de datos HSQL embebida y los archivos necesarios para una conexión JPA");
 	}
 
 	/**
@@ -145,23 +141,22 @@ public class Service {
 	 * archivos necesarios para JDBC
 	 * 
 	 * @param databasename
-	 * @throws BusinessException
 	 */
-	public static void generateHSQLServerJDBC(String databasename) throws BusinessException {
+	public static void generateHSQLServerJDBC(String databasename) {
 		try {
-			GestorEmbeddedBD.runHSQLDBJDBC(databasename);
+			ServiceSGBD.runHSQLDBJDBC(databasename);
+			log("Generada una base de datos HSQL embebida y los archivos necesarios para una conexión JDBC");
 		} catch (BusinessException e) {
 			logExcepction("Error al generar la base de datos embebida HSQL para JDBC", e);
-			throw new BusinessException(e);
+			throw new RuntimeException("Error al inicializar la base de datos: " + e);
 		}
-		log("Generada una base de datos HSQL embebida y los archivos necesarios para una conexión JDBC");
 	}
 
 	/**
 	 * Para la base de datos HSQL embebida
 	 */
 	public static void stopHSQLServer() {
-		GestorEmbeddedBD.stopHSQLDB();
+		ServiceSGBD.stopHSQLDB();
 		log("Parado el gestor de bases de datos HSQL embebida");
 	}
 
@@ -170,19 +165,18 @@ public class Service {
 	 * archivos necesarios para JDBC
 	 * 
 	 * @param databasename
-	 * @throws BusinessException
 	 */
-	public static void generateDerbyDBServerJDBC(String databasename) throws BusinessException {
+	public static void generateDerbyDBServerJDBC(String databasename) {
 		try {
-			GestorEmbeddedBD.runDerbyJDBC(databasename);
+			ServiceSGBD.runDerbyJDBC(databasename);
+			log("Generada una base de datos Derby embebida y los archivos necesarios para una conexión JDBC");
 		} catch (BusinessException e) {
 			logExcepction("Error al generar la base de datos embebida Derby para JDBC", e);
-			throw new BusinessException(e);
+			throw new RuntimeException("Error al inicializar la base de datos: " + e);
 		}
-		log("Generada una base de datos Derby embebida y los archivos necesarios para una conexión JDBC");
 	}
-	// fin gestor base de datos
 
+	// fin gestor base de datos
 	// framework
 	/**
 	 * Devuelve una instancia de la factory que permite hacer las llamadas a los
@@ -202,15 +196,38 @@ public class Service {
 	}
 
 	/**
+	 * Inicia el framework a partir del archivo de propiedades
+	 * arq_core.properties
+	 * 
+	 */
+	public static void start() {
+		try {
+			Lector.loadProperty("/arq_core.properties", "business");
+			Lector.loadProperty("/arq_core.properties", "persistence");
+			log("Iniciado el framework");
+		} catch (IOException e) {
+			logExcepction("Error al acceder al archivo de configuracion del framwork", e);
+			throw new RuntimeException("Error al inicializar el framework: " + e);
+		} catch (BusinessException e) {
+			throw new RuntimeException(e + ", " + "es posible que el fichero no se encuentre creado");
+		}
+	}
+
+	/**
 	 * Inicia el framework
 	 * 
 	 * @param businessImpl
 	 * @param persistenceImpl
 	 */
 	public static void start(Business businessImpl, Persistence persistenceImpl) {
-		start(businessImpl);
-		start(persistenceImpl);
-		log("Iniciado el framework");
+		try {
+			start(businessImpl);
+			start(persistenceImpl);
+			log("Iniciado el framework");
+			guardaConf();
+		} catch (BusinessException e) {
+			throw new RuntimeException("Error al inicializar el framework: " + e);
+		}
 	}
 
 	/**
@@ -230,9 +247,37 @@ public class Service {
 	public static void start(Persistence persistenceImpl) {
 		Factory._setImplePersistence(persistenceImpl);
 	}
-	// fin framework
 
-	// otros
+	private static void guardaConf() throws BusinessException {
+		try {
+			log("Generando archivo properties del framework: arq_core.properties");
+			String body = "business=" + UtilGenerador.getRutaPaquetesJava() + get().business().getClass().getName()
+					+ "\n";
+			body += "persistence=" + UtilGenerador.getRutaPaquetesJava() + get().persistence().getClass().getName()
+					+ "\n";
+			Escritor.escritorForzoso("src/", "arq_core.properties", body);
+		} catch (BusinessException e) {
+			throw new BusinessException(e);
+		}
+	}
+
+	public static void fin() {
+		try {
+			Service.class.newInstance().finalize();
+			System.runFinalization();
+			System.gc();
+		} catch (Throwable e) { // no
+		}
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		log("Ejecución finalizada");
+		super.finalize();
+	}
+
+	// fin framework
+	// persistencia JDBC / JPA
 	/**
 	 * Devuelve un EntityManager con el que hacer las acciones de persistencia
 	 * con JPA, solo para el framework JPA
@@ -271,8 +316,8 @@ public class Service {
 		JDBCFactory.offPool();
 		log("Desactivado pool de conexiones JDBC");
 	}
-	// fin otros
 
+	// fin persistencia JBDC / JPA
 	// logger
 	public final static int MODE_DISCRETO = LoggerImpl.MODE_DISCRETO;
 	public final static int MODE_ACTIVO = LoggerImpl.MODE_ACTIVO;
@@ -283,33 +328,52 @@ public class Service {
 	}
 
 	public static int modeLogDiscreto() {
+		logForzoso("Activando el modo discreto");
 		return LoggerImpl.setMode(MODE_DISCRETO);
 	}
 
 	public static int modeLogActivo() {
+		logForzoso("Activando el modo activo");
 		return LoggerImpl.setMode(MODE_ACTIVO);
 	}
 
 	public static int modeLogOff() {
+		logForzoso("Activando el modo apagado");
 		return LoggerImpl.setMode(MODE_OFF);
 	}
 
-	private static void log(String line) {
+	public static void log(String line) {
 		LoggerImpl.log(line);
 	}
 
-	private static void logExcepction(String line, Exception e) {
+	public static void logExcepction(String line, Exception e) {
 		LoggerImpl.log(line);
 		LoggerImpl.log(e.getMessage());
 	}
 
-	private static void logForzoso(String line) {
-		log("Log forzoso");
+	public static void logForzoso(String line) {
 		int mode = LoggerImpl.getMode();
 		LoggerImpl.modeActivo();
 		log(line);
 		LoggerImpl.setMode(mode);
-		log("Fin log forzoso");
 	}
+
 	// fin logger
+	// servicios REST
+	/**
+	 * Genera las interfaces y clases necesarias para todas las clases del
+	 * directorio pasado por parámetro en el directorio definido por la ruta por
+	 * defecto (src/../rest/)
+	 * 
+	 */
+	public static void generaClasesRest(String directorio) {
+		try {
+			GeneradorREST.start(directorio);
+			logForzoso("Generando clases para implementar servicios REST");
+		} catch (BusinessException e) {
+			logExcepction("Generando clases para implementar servicios REST", e);
+			throw new RuntimeException("Error al inicializar la demo: " + e);
+		}
+	}
+	// fin servicios REST
 }

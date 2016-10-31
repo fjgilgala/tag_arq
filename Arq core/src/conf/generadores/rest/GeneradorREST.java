@@ -1,4 +1,4 @@
-package conf.framework.rest;
+package conf.generadores.rest;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -6,44 +6,42 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import conf.generadores.GeneradorREST;
 import conf.generadores.UtilGenerador;
 import conf.util.BusinessException;
 import conf.util.Escritor;
 import conf.util.Lector;
 
-public class ServiceREST {
+/**
+ * GeneradorREST clase encargada de generar las clases e interfaces necesarias
+ * para proporcionar servicios web REST
+ * 
+ * @author Francisco Javier Gil Gala
+ *
+ */
+public class GeneradorREST {
 
 	static final String directorioDestino = UtilGenerador.getRutaPaquetes() + "rest/";
-	static String paquete_rest_java = UtilGenerador.getRutaPaquetesJava() + "rest";
+	static final String paquete_rest_java = UtilGenerador.getRutaPaquetesJava() + "rest";
+	static final List<String> names = new ArrayList<String>(
+			Arrays.asList("toString", "notifyAll", "notify", "getClass", "hashCode", "equals", "wait"));
 
 	static String directorioOrigen;
 	static String paqueteOrigen;
-	static List<String> clases;
 
 	/**
 	 * Genera las interfaces y clases necesarias para todas las clases del
-	 * directorio pasado por parámetro
+	 * directorio pasado por parámetro en el directorio definido
+	 * por @UtilGenerador.@getRutaPaquetes()/rest/
 	 * 
 	 * @throws BusinessException
 	 */
 	public static void start(String directorioOrigen) throws BusinessException {
-		ServiceREST.directorioOrigen = directorioOrigen;
-		clases = new ArrayList<String>();
+		GeneradorREST.directorioOrigen = directorioOrigen;
 		List<String> archivos_clases = cargarDirectorio(directorioOrigen);
-		GeneradorREST.generaDirectorios(directorioDestino);
+		generarDirectorios(directorioDestino);
 		for (String nombre : archivos_clases)
 			genera(nombre);
-		GeneradorREST.generaraAplicacion(directorioDestino);
-	}
-
-	/**
-	 * Devuelve una lista con los nombres de las clases generadas
-	 * 
-	 * @return List<String> clases
-	 */
-	static List<String> registroClases() {
-		return clases;
+		generarAplicacion(directorioDestino);
 	}
 
 	/**
@@ -51,11 +49,16 @@ public class ServiceREST {
 	 * 
 	 * @return String paquete implementaciones
 	 */
-	static String getPaqueteImplementaciones() {
-		return directorioDestino + ".impl";
+	public static String getPaqueteImplementaciones() {
+		return directorioDestino + "impl";
 	}
 
 	// metodos auxiliares
+	private static List<String> cargarDirectorio(String directorio) throws BusinessException {
+		return Lector.cargarDirectorio(directorio).stream().map(x -> x.substring(0, x.lastIndexOf(".")))
+				.collect(Collectors.toList());
+	}
+
 	/**
 	 * Genera la interfaz rest y su implementación asociada al nombre de la
 	 * clase pasada por parametro
@@ -68,27 +71,20 @@ public class ServiceREST {
 		Clase clase = generarImplementacion(nombre, interfaz.getNombre());
 		Escritor.escritor(directorioDestino, interfaz.getNombre() + ".java", interfaz.getBody());
 		Escritor.escritor(directorioDestino + "/impl/", clase.getNombre() + ".java", clase.getBody());
-		clases.add(clase.getNombre());
-	}
-
-	private static List<String> cargarDirectorio(String directorio) throws BusinessException {
-		return Lector.cargarDirectorio(directorio).stream().map(x -> x.substring(0, x.lastIndexOf(".")))
-				.collect(Collectors.toList());
 	}
 
 	private static Interfaz generaInterfaceRest(String nombre) throws BusinessException {
 		return new Interfaz(nombre, leeMetodos(nombre), paquete_rest_java);
 	}
 
-	private static Clase generarImplementacion(String nombre, String interfaz)
-			throws BusinessException {
+	private static Clase generarImplementacion(String nombre, String interfaz) throws BusinessException {
 		return new Clase(nombre, leeMetodos(nombre), paquete_rest_java, interfaz);
 	}
 
 	private static List<Metodo> leeMetodos(String clase) throws BusinessException {
 		try {
 			List<Metodo> metodos = new ArrayList<Metodo>();
-			Class<?> laClase = Class.forName("business" + "." + clase);
+			Class<?> laClase = Class.forName(directorioOrigen.replace("/", ".").replace("src.", "") + clase);
 			Method[] methods = laClase.getMethods();
 			List<Parametro> parametros = null;
 			for (int i = 0; i < methods.length; i++) {
@@ -102,17 +98,30 @@ public class ServiceREST {
 			}
 			return metodos;
 		} catch (ClassNotFoundException e) {
-			throw new BusinessException("No se encuentran la clase");
+			throw new BusinessException("No se encuentra la clase");
 		}
 	}
 
 	private static boolean isGeneralMethod(String nombre) {
-		ArrayList<String> names = new ArrayList<String>(
-				Arrays.asList("toString", "notifyAll", "notify", "getClass", "hashCode", "equals", "wait"));
 		if (names.contains(nombre))
 			return true;
 		else
 			return false;
 	}
+
+	private static void generarAplicacion(String directorioDestino) throws BusinessException {
+		String name = "Application.java";
+		String body = "package " + UtilGenerador.getRutaPaquetesJava() + "rest;\n\n" + "import java.util.Set;\n\n"
+				+ "public class Application extends conf.framework.rest.Application {\n" + "\t@Override\n"
+				+ "\tpublic Set<Class<?>> getClasses() {\n" + "\t\treturn super.getClasses();\n" + "\t}\n}";
+		String url = UtilGenerador.getRutaPaquetes() + "rest/";
+		Escritor.escritor(url, name, body);
+	}
+
+	private static void generarDirectorios(String directorioDestino) throws BusinessException {
+		Escritor.escritorCarpeta(directorioDestino);
+		Escritor.escritorCarpeta(directorioDestino + "/impl");
+	}
+
 	// fin metodos auxiliares
 }

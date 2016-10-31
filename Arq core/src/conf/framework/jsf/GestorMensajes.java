@@ -7,6 +7,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+/**
+ * 
+ * @author Francisco Javier Gil Gala
+ *
+ */
 @ManagedBean(name = "gestor")
 @SessionScoped
 public class GestorMensajes implements Serializable {

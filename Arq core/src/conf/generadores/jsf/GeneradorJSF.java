@@ -1,10 +1,9 @@
-package conf.generadores;
+package conf.generadores.jsf;
 
+import conf.generadores.UtilGenerador;
 import conf.util.BusinessException;
 import conf.util.Escritor;
 
-
-// recuperar una versión más antigua que tenga lo de generar si que quiere REST
 
 public class GeneradorJSF {
 	
@@ -17,13 +16,18 @@ public class GeneradorJSF {
 		Escritor.escritor(url, "web.xml", webBody);
 	}
 	
+	public static void startWithRest() throws BusinessException {
+		core();
+		String webBody = webBody() + withRest() +"</web-app>";
+		Escritor.escritor(url, "web.xml", webBody);
+	}
+	
 	private static void core() throws BusinessException{
 		Escritor.escritorCarpeta("WebContent");
 		Escritor.escritorCarpeta("WebContent/templates");
 		Escritor.escritorCarpeta("WebContent/WEB-INF");
 		Escritor.escritorCarpeta("WebContent/WEB-INF/lib");
 		Escritor.escritorCarpeta(UtilGenerador.getRutaPaquetes()+"/presentation");
-		// reportador();
 		String beansBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
 						   "<beans xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"+
 						   "xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee\n"+
@@ -45,24 +49,6 @@ public class GeneradorJSF {
 								 "</faces-config>";
 		Escritor.escritorForzoso(url, "faces-config.xml", faces_configBody);
 	}
-	
-	/*
-	private static void reportador() throws BusinessException{
-		String url = UtilGenerador.getRutaPaquetes()+"presentation/";
-		Escritor.escritorCarpeta(url);
-		String name = "Reportador.java";
-		String body = 
-					"package " + UtilGenerador.getRutaPaquetesJava() + "presentation;\n\n" 
-				+ 	"import java.util.ResourceBundle;\n" 
-				+ 	"import javax.faces.context.FacesContext;\n\n"
-				+ 	"public class Reportador {\n\n"
-				+ 	"\t public String error(String error) {\n"
-				+ 	"\t\t FacesContext facesContext = FacesContext.getCurrentInstance();\n"
-				+ 	"\t\t ResourceBundle bundle = facesContext.getApplication().getResourceBundle(facesContext, \"msgs\"); \n"
-				+ 	"\t\t return bundle.getString(error);\n \t}\n}";
-		Escritor.escritor(url, name, body);
-	}
-	*/
 
 	private static String webBody() {
 		return 	 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
@@ -88,7 +74,7 @@ public class GeneradorJSF {
 				 "<param-value>true</param-value>\n"+
 				 "</context-param>\n";
 	}
-	/*	
+	
 	private static String withRest(){
 		return  "<context-param>\n"+
 				 "<param-name>resteasy.servlet.mapping.prefix</param-name>\n"+
@@ -119,7 +105,7 @@ public class GeneradorJSF {
 				 "<url-pattern>/rest-jsapi</url-pattern>\n"+
 				 "</servlet-mapping>\n";
 	}
-	*/
+	
 	/*
 	private static void generalPage(){
 		String body = 	"<?xml version='1.0' encoding='UTF-8' ?>"+

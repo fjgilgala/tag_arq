@@ -1,4 +1,4 @@
-package conf.framework.rest;
+package conf.generadores.rest;
 
 import java.util.List;
 
@@ -45,5 +45,4 @@ class Clase {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 }

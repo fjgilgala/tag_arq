@@ -1,4 +1,4 @@
-package conf.framework.rest;
+package conf.generadores.rest;
 
 class Parametro {
 

@@ -1,27 +1,27 @@
-package conf.gestorpersistance;
+package conf.framework.sgbd;
 
 import org.hsqldb.server.Server;
 
-import conf.generadores.GeneradorArchivosJDBC;
-import conf.generadores.GeneradorArchivosJPA;
+import conf.generadores.persistence.GeneradorJDBC;
+import conf.generadores.persistence.GeneradorJPA;
 import conf.util.BusinessException;
 
 /**
  * 
- * GestorEmbeddedBD ejecuta server de base de datos embebidas en la aplicación.
+ * ServiceSGBD ejecuta server de base de datos embebidas en la aplicación.
  * Unicamente se puede tener una instancia de cada base de datos por JVM
  * 
  * @author Francisco Javier Gil Gala
  *
  */
-public class GestorEmbeddedBD {
+public class ServiceSGBD {
 
 	private static Server hsqlServer;
 
 	public static void runDerbyJDBC(String databasename) throws BusinessException {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-			GeneradorArchivosJDBC.start("jdbc:derby:" + databasename + ";create=true", "", "");
+			GeneradorJDBC.start("jdbc:derby:" + databasename + ";create=true", "", "");
 		} catch (ClassNotFoundException e) {
 			throw new BusinessException("Error al iniciar la base de datos embebida derby");
 		}
@@ -31,10 +31,10 @@ public class GestorEmbeddedBD {
 		try {
 			if (hsqlServer == null) {
 				runHSQLDB(databasename);
-				GeneradorArchivosJPA.startHSQLDB("jdbc:hsqldb:hsql://localhost/" + databasename, "sa", "");
+				GeneradorJPA.startHSQLDB("jdbc:hsqldb:hsql://localhost/" + databasename, "sa", "");
 			}
 		} catch (BusinessException e) {
-			throw new BusinessException("Error al iniciar la base de datos embebida HSQLDB\n"+e.getMessage());
+			throw new BusinessException("Error al iniciar la base de datos embebida HSQLDB\n" + e.getMessage());
 		}
 	}
 
@@ -42,10 +42,10 @@ public class GestorEmbeddedBD {
 		try {
 			if (hsqlServer == null) {
 				runHSQLDB(databasename);
-				GeneradorArchivosJDBC.start("jdbc:hsqldb:hsql://localhost/" + databasename, "sa", "");
+				GeneradorJDBC.start("jdbc:hsqldb:hsql://localhost/" + databasename, "sa", "");
 			}
 		} catch (BusinessException e) {
-			throw new BusinessException("Error al iniciar la base de datos embebida HSQLDB\n"+e.getMessage());
+			throw new BusinessException("Error al iniciar la base de datos embebida HSQLDB\n" + e.getMessage());
 		}
 	}
 

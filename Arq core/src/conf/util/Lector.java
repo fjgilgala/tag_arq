@@ -12,7 +12,7 @@ import java.util.Scanner;
 import conf.core.Service;
 
 /**
- * Clase encargada de leer desde ficheros de propidades
+ * Clase encargada de leer desde ficheros
  * 
  * @author Francisco J Gil Gala
  *
@@ -26,18 +26,22 @@ public class Lector {
 		return clazz.newInstance();
 	}
 
-	public static String loadProperty(String file, String property) throws IOException {
+	public static String loadProperty(String file, String property) throws IOException, BusinessException {
 		Properties p = loadPropertiesFile(file);
 		String value = p.getProperty(property);
 		return value;
 	}
 
-	public static Properties loadPropertiesFile(String file) throws IOException {
-		Properties p = new Properties();
-		InputStream is = Service.class.getResourceAsStream(file);
-		p.load(is);
-		is.close();
-		return p;
+	public static Properties loadPropertiesFile(String file) throws IOException, BusinessException {
+		try {
+			Properties p = new Properties();
+			InputStream is = Service.class.getResourceAsStream(file);
+			p.load(is);
+			is.close();
+			return p;
+		} catch (NullPointerException e) {
+			throw new BusinessException("No se puede acceder al fichero " + file);
+		}
 	}
 
 	@SuppressWarnings("resource")

@@ -6,6 +6,7 @@ import javax.persistence.EntityTransaction;
 import conf.framework.jpa.core.Jpa;
 import conf.framework.jpa.executor.Action;
 import conf.util.BusinessException;
+import conf.util.LoggerImpl;
 
 public class JpaCommandExecutorImpl implements Executor {
 
@@ -31,6 +32,7 @@ public class JpaCommandExecutorImpl implements Executor {
 
 		try {
 			res = action.execute();
+			LoggerImpl.log("Ejecutado command " + action.getClass().getName());
 			tx.commit();
 		} catch (BusinessException bex) {
 			rollback(tx);

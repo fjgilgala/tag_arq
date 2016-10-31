@@ -1,9 +1,9 @@
-package conf.generadores;
+package conf.generadores.persistence;
 
 import conf.util.BusinessException;
 import conf.util.Escritor;
 
-public class GeneradorArchivosJPA {
+public class GeneradorJPA {
 
 	public static void startHSQLDB(String url, String user, String password) throws BusinessException {
 		start("org.hibernate.dialect.HSQLDialect", "org.hsqldb.jdbcDriver", url, user, password);

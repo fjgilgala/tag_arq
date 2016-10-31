@@ -49,13 +49,17 @@ public class PoolJDBC extends JDBC {
 
 	@Override
 	protected void crearConexion() throws SQLException, IOException {
-		DataSource unpooled = DataSources.unpooledDataSource(url, userName, password);
-		Map<String, Object> overrides = new HashMap<String, Object>();
-		overrides.put("maxStatements", Lector.loadProperty(CONFIG_FILE, "maxStatements"));
-		overrides.put("maxPoolSize", Lector.loadProperty(CONFIG_FILE, "maxPoolSize"));
-		overrides.put("minPoolSize", Lector.loadProperty(CONFIG_FILE, "minPoolSize"));
-		overrides.put("initialPoolSize", Lector.loadProperty(CONFIG_FILE, "initialPoolSize"));
-		pooled = DataSources.pooledDataSource(unpooled, overrides);
+		try {
+			DataSource unpooled = DataSources.unpooledDataSource(url, userName, password);
+			Map<String, Object> overrides = new HashMap<String, Object>();
+			overrides.put("maxStatements", Lector.loadProperty(CONFIG_FILE, "maxStatements"));
+			overrides.put("maxPoolSize", Lector.loadProperty(CONFIG_FILE, "maxPoolSize"));
+			overrides.put("minPoolSize", Lector.loadProperty(CONFIG_FILE, "minPoolSize"));
+			overrides.put("initialPoolSize", Lector.loadProperty(CONFIG_FILE, "initialPoolSize"));
+			pooled = DataSources.pooledDataSource(unpooled, overrides);
+		} catch (BusinessException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
